@@ -1,0 +1,159 @@
+.panel {
+  padding: 16px;
+  border: 1px solid var(--ac-border);
+  border-radius: var(--p-radius-card);
+  background: var(--ac-card);
+  box-shadow: var(--p-inset), var(--p-card-shadow);
+}
+.panelHead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+.h { margin: 0; font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+.sub { margin: 2px 0 0; color: var(--ac-muted); font-size: 0.78rem; }
+.more { color: var(--p-accent-text); font-size: 0.8rem; font-weight: 600; text-decoration: none; }
+.more:hover { text-decoration: underline; }
+
+/* ================= Thẻ AI ================= */
+@property --ai-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.ai {
+  position: relative;
+  border-color: transparent;
+  background:
+    radial-gradient(420px 160px at 10% 0%, var(--p-accent-soft), transparent 70%) padding-box,
+    linear-gradient(var(--ac-card), var(--ac-card)) padding-box,
+    conic-gradient(
+      from var(--ai-angle),
+      color-mix(in srgb, var(--p-accent) 75%, transparent) 0deg,
+      var(--ac-border) 80deg,
+      var(--ac-border) 170deg,
+      color-mix(in srgb, var(--ac-highlight) 70%, transparent) 220deg,
+      var(--ac-border) 290deg,
+      color-mix(in srgb, var(--p-accent) 75%, transparent) 360deg
+    ) border-box;
+  animation: aiSpin 9s linear infinite;
+}
+@keyframes aiSpin { to { --ai-angle: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .ai { animation: none; } }
+
+.aiHead { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+.spark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: var(--ac-highlight);
+  color: var(--ac-on-highlight);
+  font-size: 1.05rem;
+}
+
+.meals { display: grid; gap: 2px; margin: 0 0 14px; padding: 0; list-style: none; }
+.meal {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 7px 6px;
+  border-radius: 10px;
+}
+.meal:hover { background: var(--ac-tip-bg); }
+.slotIcon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--ac-tag-bg);
+  color: var(--p-accent-text);
+  font-size: 0.9rem;
+}
+.mealText { display: grid; min-width: 0; line-height: 1.3; }
+.mealText small { color: var(--ac-muted); font-size: 0.72rem; font-weight: 600; letter-spacing: .02em; }
+.mealText b { overflow: hidden; font-size: 0.86rem; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+.kcal { font-size: 0.86rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.kcal small { color: var(--ac-muted); font-size: 0.72rem; font-weight: 500; }
+
+.budget { display: grid; gap: 7px; margin-bottom: 14px; }
+.budgetRow { display: flex; justify-content: space-between; color: var(--ac-muted); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.budgetRow b { color: var(--ac-ink); }
+.macroBar { display: flex; gap: 2px; height: 8px; overflow: hidden; border-radius: 999px; }
+.macroBar span:first-child { border-radius: 999px 0 0 999px; }
+.macroBar span:last-child { border-radius: 0 999px 999px 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 0; padding: 0; color: var(--ac-muted); font-size: 0.7rem; list-style: none; }
+.legend li { display: inline-flex; align-items: center; gap: 5px; }
+.legend span { width: 8px; height: 8px; border-radius: 2px; }
+
+.aiBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--ac-border-strong);
+  border-radius: var(--p-radius-ctl);
+  background: var(--ac-elevated);
+  color: var(--ac-ink);
+  font-size: 0.87rem;
+  font-weight: 700;
+  transition: border-color .15s, background-color .15s;
+}
+.aiBtn i { transition: transform .2s var(--p-ease); }
+.aiBtn:hover { border-color: var(--p-accent); }
+.aiBtn:hover i { transform: translateX(3px); }
+.aiBtn:focus-visible { outline: 3px solid var(--ac-focus-ring); }
+.disclaimer { margin: 10px 2px 0; color: var(--ac-muted); font-size: 0.7rem; line-height: 1.45; }
+
+/* ================= Quán ================= */
+.list { display: grid; gap: 2px; margin: 0 -6px; padding: 0; list-style: none; }
+.shop {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 11px;
+  align-items: center;
+  padding: 6px;
+  border-radius: 10px;
+  color: var(--ac-ink);
+  text-decoration: none;
+}
+.shop:hover { background: var(--ac-tip-bg); }
+.shop:focus-visible { outline: 3px solid var(--ac-focus-ring); }
+.thumb { grid-row: span 2; overflow: hidden; width: 44px; border-radius: 10px; }
+.shopText { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; min-width: 0; line-height: 1.3; }
+.shopText b { overflow: hidden; font-size: 0.86rem; white-space: nowrap; text-overflow: ellipsis; }
+.shopText small { flex: none; color: var(--ac-muted); font-size: 0.74rem; }
+.open { display: inline-flex; align-items: center; gap: 6px; color: var(--ac-ok-fg); font-size: 0.75rem; font-weight: 600; }
+.closed { color: var(--ac-muted); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 20%, transparent); }
+
+/* ================= Danh mục sôi nổi ================= */
+.trend { display: grid; gap: 2px; margin: 0 -6px; padding: 0; list-style: none; }
+.trendRow {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) 64px auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 7px 6px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ac-ink);
+  text-align: left;
+}
+.trendRow:hover { background: var(--ac-tip-bg); }
+.trendRow:focus-visible { outline: 3px solid var(--ac-focus-ring); }
+.rank { color: var(--ac-muted); font-size: 0.78rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.trendName { font-size: 0.86rem; font-weight: 600; }
+.trendBar { height: 4px; overflow: hidden; border-radius: 999px; background: var(--ac-track); }
+.trendBar span { display: block; height: 100%; border-radius: inherit; background: var(--p-accent); opacity: .75; }
+.trendCount { color: var(--ac-muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+
+.footer { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 4px 6px; color: var(--ac-muted); font-size: 0.74rem; }
+.footer a { color: inherit; text-decoration: none; }
+.footer a:hover { color: var(--ac-ink); text-decoration: underline; }
+.footer span { width: 100%; opacity: .8; }

@@ -1,0 +1,86 @@
+.composer {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  border: 1px solid var(--ac-border);
+  border-radius: var(--p-radius-card);
+  background: var(--ac-card);
+  box-shadow: var(--p-inset), var(--p-card-shadow);
+}
+.row { display: flex; align-items: center; gap: 11px; }
+.fake {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 16px;
+  overflow: hidden;
+  border: 1px solid var(--ac-border);
+  border-radius: 999px;
+  background: var(--ac-field-bg);
+  color: var(--ac-muted);
+  font-size: 0.95rem;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: border-color .15s, background-color .15s;
+}
+.fake:hover { border-color: var(--ac-border-strong); background: var(--ac-tip-bg); }
+.fake:focus-visible { outline: 3px solid var(--ac-focus-ring); outline-offset: 1px; }
+
+.tools { display: flex; gap: 4px; padding-left: 51px; }
+.tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: var(--p-radius-ctl);
+  background: transparent;
+  color: var(--ac-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+.tool:hover { background: var(--ac-tip-bg); color: var(--ac-ink); }
+.tool:focus-visible { outline: 3px solid var(--ac-focus-ring); }
+.tool i { font-size: 1rem; }
+.iPhoto { color: var(--ac-protein); }
+.iVideo { color: var(--ac-fat); }
+.iAi { color: var(--ac-carb); }
+
+.filters {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 -2px;
+  padding: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* mờ dần ở mép phải → biết là còn mục, vuốt ngang được */
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent);
+}
+.filters::-webkit-scrollbar { display: none; }
+.pill {
+  flex: none;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--ac-border);
+  border-radius: 999px;
+  background: var(--ac-card);
+  color: var(--ac-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: color .15s, border-color .15s, background-color .15s;
+}
+.pill:hover { border-color: var(--ac-border-strong); color: var(--ac-ink); }
+.pill:focus-visible { outline: 3px solid var(--ac-focus-ring); outline-offset: 1px; }
+.pillOn, .pillOn:hover {
+  border-color: var(--p-selected-bg);
+  background: var(--p-selected-bg);
+  color: var(--p-selected-fg);
+}
+
+@media (max-width: 479.98px) {
+  .tools { padding-left: 0; justify-content: space-between; }
+  .tool { padding: 0 8px; }
+}

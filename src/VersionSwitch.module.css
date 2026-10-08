@@ -1,0 +1,37 @@
+.wrap {
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: 50%;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: #1C1A17;
+  color: #F5F1EA;
+  font: 600 0.8rem/1 'Be Vietnam Pro', system-ui, sans-serif;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.45);
+}
+.caption { padding: 0 8px 0 10px; color: #BDB4A6; font-weight: 500; }
+.opt {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  color: #F5F1EA;
+  text-decoration: none;
+  transition: background-color .15s;
+}
+.opt:hover { background: rgba(255, 255, 255, 0.1); color: #FFFFFF; }
+.on, .on:hover { background: #F5F1EA; color: #1C1A17; }
+.opt:focus-visible { outline: 2px solid #F5F1EA; outline-offset: 2px; }
+
+/* Điện thoại: nằm trên thanh điều hướng dưới đáy */
+@media (max-width: 767.98px) {
+  .wrap { bottom: calc(88px + env(safe-area-inset-bottom)); }
+}

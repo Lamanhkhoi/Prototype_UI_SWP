@@ -1,0 +1,93 @@
+.panel { padding: 20px; border: 1px solid var(--t-line); border-radius: 20px; background: var(--t-surface); }
+.head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.h { margin: 0; font-size: 1.15rem; font-weight: 600; }
+.link { color: var(--t-olive); font-size: 0.84rem; font-weight: 600; }
+
+/* ----- Mầm gợi ý ----- */
+.plan { display: grid; gap: 14px; background: var(--t-surface-2); border-color: var(--t-line-2); }
+.planHead { display: flex; align-items: center; gap: 12px; }
+.planTitle { margin: 0; font-size: 1.2rem; font-weight: 600; line-height: 1.2; }
+.sub { margin: 2px 0 0; color: var(--t-muted); font-size: 0.82rem; }
+.meals { display: grid; margin: 0; padding: 0; list-style: none; }
+.meals li {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: baseline;
+  gap: 8px;
+  padding: 9px 0;
+  border-top: 1px solid var(--t-line-2);
+  font-size: 0.9rem;
+}
+.slot { color: var(--t-muted); font-size: 0.78rem; font-weight: 600; }
+.meals b { font-weight: 600; }
+.kcal { color: var(--t-text-2); font-size: 0.84rem; font-variant-numeric: tabular-nums; }
+.kcal::after { content: " kcal"; color: var(--t-muted); font-size: 0.72rem; }
+.total { display: flex; justify-content: space-between; color: var(--t-text-2); font-size: 0.84rem; font-variant-numeric: tabular-nums; }
+.total b { color: var(--t-text); }
+.bar { display: flex; gap: 3px; height: 10px; margin-top: -6px; }
+.bar span { border-radius: 3px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: -4px 0 0; padding: 0; color: var(--t-muted); font-size: 0.76rem; list-style: none; }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 8px; height: 8px; border-radius: 2px; }
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--t-olive);
+  color: var(--t-on-olive);
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: opacity .15s;
+}
+.cta:hover { opacity: 0.9; }
+.note { margin: -4px 0 0; color: var(--t-muted); font-size: 0.72rem; line-height: 1.45; }
+
+/* ----- Quán ----- */
+.shops { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.shop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 -8px;
+  padding: 8px;
+  border-radius: 12px;
+  color: var(--t-text);
+  text-decoration: none;
+  transition: background-color .15s;
+}
+.shop:hover { background: var(--t-surface-2); }
+.thumb { flex: none; width: 48px; overflow: hidden; border-radius: 10px; }
+.shopText { display: grid; flex: 1; min-width: 0; line-height: 1.35; }
+.shopText b { overflow: hidden; font-size: 0.9rem; white-space: nowrap; text-overflow: ellipsis; }
+.shopText small { color: var(--t-muted); font-size: 0.78rem; }
+.status { flex: none; color: var(--t-muted); font-size: 0.74rem; font-weight: 600; }
+.open { color: var(--t-olive); }
+
+/* ----- Sôi nổi ----- */
+.trend { display: grid; margin: 0; padding: 0; list-style: none; }
+.trend button {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: baseline;
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-top: 1px solid var(--t-line);
+  background: transparent;
+  color: var(--t-text);
+  text-align: left;
+}
+.trend li:first-child button { border-top: 0; }
+.trend button:hover b { color: var(--t-olive); }
+.rank { color: var(--t-muted); font-family: var(--t-serif); font-size: 1.05rem; font-style: italic; }
+.trend b { font-size: 0.92rem; font-weight: 600; transition: color .15s; }
+.trend small { color: var(--t-muted); font-size: 0.78rem; }
+
+.footer { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 0 4px; color: var(--t-muted); font-size: 0.76rem; }
+.footer a { color: var(--t-muted); text-decoration: none; }
+.footer a:hover { color: var(--t-text); text-decoration: underline; }
+.footer span { flex-basis: 100%; }

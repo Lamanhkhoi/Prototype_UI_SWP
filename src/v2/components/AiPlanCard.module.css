@@ -1,0 +1,81 @@
+.card {
+  position: relative;
+  padding: 22px;
+  border: 1px solid var(--v-line);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, var(--v-accent-soft), transparent 45%),
+    var(--v-surface);
+  box-shadow: var(--v-shadow);
+}
+/* Nền sáng: chỉ viền vàng cúc nhạt để nhận ra là thẻ AI, không nổi hơn bài post */
+:global(:root[data-theme="light"]) .card {
+  border-color: rgba(249, 166, 32, 0.3);
+  background: linear-gradient(180deg, rgba(249, 166, 32, 0.06), transparent 40%), var(--v-surface);
+}
+
+.head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.orb { width: 42px; height: 42px; border-radius: 14px; font-size: 1.15rem; }
+.title { margin: 0; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; }
+.sub { margin: 2px 0 0; color: var(--v-muted); font-size: 0.8rem; }
+
+.meals { display: grid; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
+.meal {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 11px 12px;
+  border: 1px solid var(--v-line);
+  border-radius: 14px;
+  background: var(--v-bg);
+  animation: rise .6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(0.35s + var(--i) * 0.08s);
+  transition: border-color .2s, transform .2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.meal:hover { border-color: var(--v-accent-line); transform: translateX(3px); }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+.slot { display: inline-flex; align-items: center; gap: 6px; color: var(--v-muted); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.dish { overflow: hidden; font-size: 0.9rem; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+.kcal { font-size: 0.92rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.kcal small { margin-left: 3px; color: var(--v-muted); font-size: 0.7rem; font-weight: 600; }
+
+.ring { display: grid; gap: 12px; margin-bottom: 18px; }
+.ringRow { display: flex; align-items: center; gap: 16px; }
+.rings { flex: none; }
+.arc {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len) var(--full);
+  animation: draw 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(0.3s + var(--i) * 0.1s);
+}
+@keyframes draw { from { stroke-dasharray: 0 var(--full); } }
+@media (prefers-reduced-motion: reduce) { .arc { animation: none; } }
+.arcLabel { fill: var(--v-muted); font-size: 10px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.barMeta { display: flex; justify-content: space-between; color: var(--v-muted); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.barMeta b { color: var(--v-accent-text); }
+.legend { display: grid; gap: 8px; margin: 0; padding: 0; color: var(--v-muted); font-size: 0.76rem; list-style: none; }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 8px; height: 8px; border-radius: 50%; }
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--v-accent);
+  color: var(--v-on-accent);
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: background-color .15s;
+}
+.cta:hover { background: var(--v-accent-hover); }
+.cta i { transition: transform .2s cubic-bezier(0.16, 1, 0.3, 1); }
+.cta:hover i { transform: translateX(3px); }
+.note { margin: 12px 2px 0; color: var(--v-muted); font-size: 0.7rem; line-height: 1.5; }

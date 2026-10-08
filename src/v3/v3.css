@@ -1,0 +1,117 @@
+/* =====================================================================
+   PROTOTYPE UI v3 — "Bếp nhà" (ui-ux-pro-max: Nature Distilled + Flat)
+   - Sáng là chính: nền kem, thẻ phẳng, viền mảnh, KHÔNG bóng đổ, KHÔNG neon
+   - Màu: ô liu (điều hướng, đang chọn, link) + đất nung (nút hành động chính)
+   - Chữ: Fraunces (tiêu đề, có dấu tiếng Việt) + Be Vietnam Pro (nội dung)
+   - Mọi cặp chữ/nền ≥ 4.5:1 (đã đo cả Sáng lẫn Tối)
+   ===================================================================== */
+
+/* ---------- Sáng ---------- */
+:root[data-v3] {
+  --t-bg: #F7F2E8;
+  --t-surface: #FFFDF8;
+  --t-surface-2: #F1EADD;
+  --t-line: #E6DCCB;
+  --t-line-2: #D5C8B2;
+  --t-text: #2A2118;
+  --t-text-2: #4A3F33;
+  --t-muted: #6B5E4F;
+  --t-olive: #4F5E25;
+  --t-olive-soft: #EBEBD3;
+  --t-on-olive: #FFFFFF;
+  --t-terra: #A84B28;
+  --t-terra-hover: #933F1F;
+  --t-on-terra: #FFFFFF;
+  --t-header-bg: rgba(247, 242, 232, 0.92);
+  --t-serif: 'Fraunces', Georgia, serif;
+  --t-ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Map sang biến của bộ kit → Menu, Toast, Photo, Chat... tự hợp */
+  --ac-cream: var(--t-bg);
+  --ac-card: var(--t-surface);
+  --ac-elevated: var(--t-surface);
+  --ac-ink: var(--t-text);
+  --ac-muted: var(--t-muted);
+  --ac-border: var(--t-line);
+  --ac-border-strong: var(--t-line-2);
+  --ac-tip-bg: var(--t-surface-2);
+  --ac-tag-bg: var(--t-olive-soft);
+  --ac-moss: var(--t-olive);
+  --ac-field-bg: var(--t-surface);
+  --ac-alert: #B3261E;
+  --ac-bad-fg: #8C1D18;
+  --ac-alert-soft: #FBEAE7;
+  --ac-focus-ring: rgba(79, 94, 37, 0.35);
+  --ac-photo-fallback: linear-gradient(135deg, #E9E1CF 0%, #D9CDB4 100%);
+  --ac-photo-fallback-icon: rgba(79, 94, 37, 0.45);
+  --ac-protein: #4F7A3A;
+  --ac-carb: #C08A2E;
+  --ac-fat: #B5603D;
+  --ac-fiber: #7A6A9E;
+
+  /* AskMam của v2 được dùng lại → trỏ biến --v-* của nó sang token v3 */
+  --v-surface: var(--t-surface);
+  --v-line: var(--t-line);
+  --v-line-2: var(--t-line-2);
+  --v-text: var(--t-text);
+  --v-text-2: var(--t-text-2);
+  --v-muted: var(--t-muted);
+  --v-accent-line: var(--t-olive);
+  --v-shadow-pop: 0 0 0 1px var(--t-line-2);
+  color-scheme: light;
+}
+
+/* ---------- Tối: nâu than ấm, không đen xanh như v2 ---------- */
+:root[data-v3][data-theme="dark"] {
+  --t-bg: #15120E;
+  --t-surface: #1D1914;
+  --t-surface-2: #26211A;
+  --t-line: #2E281F;
+  --t-line-2: #40372B;
+  --t-text: #F2EBDF;
+  --t-text-2: #D2C7B6;
+  --t-muted: #A99B87;
+  --t-olive: #B9C684;
+  --t-olive-soft: #2A2C1C;
+  --t-on-olive: #15120E;
+  --t-terra: #E8916A;
+  --t-terra-hover: #F0A585;
+  --t-on-terra: #1A120C;
+  --t-header-bg: rgba(21, 18, 14, 0.92);
+
+  --ac-alert: #F2B8B5;
+  --ac-bad-fg: #F2B8B5;
+  --ac-alert-soft: rgba(242, 184, 181, 0.1);
+  --ac-focus-ring: rgba(185, 198, 132, 0.45);
+  --ac-photo-fallback: linear-gradient(135deg, #26211A 0%, #332C22 100%);
+  --ac-photo-fallback-icon: rgba(185, 198, 132, 0.4);
+  --ac-protein: #9CC27F;
+  --ac-carb: #E2B464;
+  --ac-fat: #E8916A;
+  --ac-fiber: #B4A6D6;
+  color-scheme: dark;
+}
+
+:root[data-v3] body {
+  margin: 0;
+  background: var(--t-bg);
+  color: var(--t-text);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+:root[data-v3] ::selection { background: var(--t-olive-soft); }
+:root[data-v3] :focus-visible { outline: 2px solid var(--t-olive); outline-offset: 2px; }
+:root[data-v3] button, :root[data-v3] a { cursor: pointer; }
+
+.v3-serif { font-family: var(--t-serif); font-optical-sizing: auto; letter-spacing: -0.01em; }
+
+/* Biểu tượng AI của Mầm: ô vuông ô liu phẳng, không phát sáng (v2 dùng neon) */
+:root[data-v3] .v2-ai-orb {
+  display: grid;
+  flex: none;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--t-olive);
+  color: var(--t-on-olive);
+}

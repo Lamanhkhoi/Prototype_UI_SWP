@@ -1,0 +1,152 @@
+/* =====================================================================
+   PROTOTYPE UI v1 — lớp token phủ lên theme.scss của bộ kit
+   - Không sửa file nào của kit: chỉ ghi đè biến --ac-* theo bảng màu,
+     nên component cũ (Menu, Photo, Chip...) tự đổi theo.
+   - Thêm biến --p-* cho những thứ kit chưa có: độ nổi bề mặt, màu nhấn riêng.
+   Bật bằng <html data-palette="garden|graphite" data-theme="light|dark">.
+   ===================================================================== */
+
+/* ---------- Dùng chung ---------- */
+:root {
+  --p-radius-card: 16px;
+  --p-radius-ctl: 10px;
+  --p-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =====================================================================
+   BẢNG 1 · "VƯỜN" — giữ tinh thần rêu + kem hiện tại, làm lại độ sâu
+   ===================================================================== */
+:root[data-palette="garden"]:not([data-theme="dark"]) {
+  --ac-cream: #F4F1E8;          /* nền trang */
+  --ac-card: #FFFDF8;           /* thẻ */
+  --ac-elevated: #FFFFFF;       /* thẻ nổi, menu, mục đang chọn */
+  --ac-ink: #1F1D18;
+  --ac-muted: #655E51;
+  --ac-border: #E6DFCF;
+  --ac-border-strong: #D2C8B2;
+  --ac-moss: #3D5A3D;
+  --ac-tag-bg: #E8EEE1;
+  --ac-tip-bg: #F1ECE0;         /* nền khi rê chuột */
+  --ac-field-bg: #EFEADE;
+  --ac-track: #ECE6D8;
+
+  --p-accent: #3D5A3D;
+  --p-accent-hover: #33503A;
+  --p-on-accent: #FFFDF8;
+  --p-accent-soft: #E6EEDF;
+  --p-accent-text: #2F5A33;
+  --p-ink-2: #3B382F;           /* đoạn trích bài */
+  --p-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --p-card-shadow: 0 1px 2px rgba(42, 38, 32, 0.04), 0 8px 24px -18px rgba(42, 38, 32, 0.25);
+  --p-glow: radial-gradient(1100px 460px at 30% -160px, rgba(122, 155, 110, 0.14), transparent 70%);
+  --p-selected-bg: #1F1D18;
+  --p-selected-fg: #FFFDF8;
+  --p-primary-bg: var(--p-accent);
+  --p-primary-hover: var(--p-accent-hover);
+  --p-primary-fg: var(--p-on-accent);
+}
+
+:root[data-palette="garden"][data-theme="dark"] {
+  --ac-cream: #0B1510;
+  --ac-card: #111E16;
+  --ac-elevated: #18281E;
+  --ac-ink: #E9EFE5;
+  --ac-muted: #A4B39F;
+  --ac-border: #203026;
+  --ac-border-strong: #2F4235;
+  --ac-moss: #9BC98A;
+  --ac-tag-bg: #1A2D1F;
+  --ac-tip-bg: #17251C;
+  --ac-field-bg: #13201A;
+  --ac-track: #1C2B21;
+  --ac-photo-fallback: linear-gradient(135deg, #2A3F2E 0%, #355A3A 55%, #4A7A4A 100%);
+
+  --p-accent: #9BC98A;
+  --p-accent-hover: #AEDA9D;
+  --p-on-accent: #0A110D;
+  --p-accent-soft: rgba(155, 201, 138, 0.13);
+  --p-accent-text: #A9D69A;
+  --p-ink-2: #C8D2C3;
+  --p-inset: inset 0 1px 0 rgba(233, 239, 229, 0.045);
+  --p-card-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  --p-glow: radial-gradient(900px 420px at 30% -120px, rgba(155, 201, 138, 0.10), transparent 70%);
+  --p-selected-bg: #E9EFE5;
+  --p-selected-fg: #0B1510;
+  --p-primary-bg: var(--p-accent);
+  --p-primary-hover: var(--p-accent-hover);
+  --p-primary-fg: var(--p-on-accent);
+}
+
+/* =====================================================================
+   BẢNG 2 · "THAN CHÌ" — nền trung tính kiểu Linear, xanh lá chỉ để nhấn
+   ===================================================================== */
+:root[data-palette="graphite"]:not([data-theme="dark"]) {
+  --ac-cream: #F6F6F4;
+  --ac-card: #FFFFFF;
+  --ac-elevated: #FFFFFF;
+  --ac-ink: #16171A;
+  --ac-muted: #5F6168;
+  --ac-border: #E6E6E3;
+  --ac-border-strong: #D2D2CE;
+  --ac-moss: #2E6A38;
+  --ac-matcha: #5C8F58;
+  --ac-tag-bg: #EDF3EB;
+  --ac-tip-bg: #F1F1EF;
+  --ac-field-bg: #EFEFEC;
+  --ac-track: #EBEBE8;
+  --ac-photo-fallback: linear-gradient(135deg, #C9D6C0 0%, #8FAE86 55%, #4F7A4C 100%);
+
+  --p-accent: #2E6A38;
+  --p-accent-hover: #275C30;
+  --p-on-accent: #FFFFFF;
+  --p-accent-soft: #E8F1E6;
+  --p-accent-text: #2B6434;
+  --p-ink-2: #3A3C42;
+  --p-inset: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --p-card-shadow: 0 1px 2px rgba(16, 17, 20, 0.04), 0 8px 24px -18px rgba(16, 17, 20, 0.22);
+  --p-glow: radial-gradient(1100px 460px at 30% -160px, rgba(46, 106, 56, 0.06), transparent 70%);
+  --p-selected-bg: #16171A;
+  --p-selected-fg: #FFFFFF;
+  /* Than chì: nút chính màu mực (kiểu Linear/Vercel), xanh lá chỉ còn ở chỗ nhấn nhỏ */
+  --p-primary-bg: #16171A;
+  --p-primary-hover: #2A2B30;
+  --p-primary-fg: #FFFFFF;
+}
+
+:root[data-palette="graphite"][data-theme="dark"] {
+  --ac-cream: #08090A;
+  --ac-card: #0F1012;
+  --ac-elevated: #16171A;
+  --ac-ink: #EDEEF0;
+  --ac-muted: #8E939C;
+  --ac-border: #1E2024;
+  --ac-border-strong: #2D3036;
+  --ac-moss: #8FCB7C;
+  --ac-matcha: #6E9F62;
+  --ac-tag-bg: #151A16;
+  --ac-tip-bg: #16171A;
+  --ac-field-bg: #121315;
+  --ac-track: #1A1B1E;
+  --ac-photo-fallback: linear-gradient(135deg, #25302A 0%, #2F4A33 55%, #3F6B42 100%);
+
+  --p-accent: #8FCB7C;
+  --p-accent-hover: #A3D892;
+  --p-on-accent: #07110A;
+  --p-accent-soft: rgba(143, 203, 124, 0.11);
+  --p-accent-text: #9FD68E;
+  --p-ink-2: #C3C6CC;
+  --p-inset: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  --p-card-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  --p-glow: radial-gradient(900px 420px at 30% -140px, rgba(143, 203, 124, 0.07), transparent 70%);
+  --p-selected-bg: #EDEEF0;
+  --p-selected-fg: #08090A;
+  --p-primary-bg: #EDEEF0;
+  --p-primary-hover: #FFFFFF;
+  --p-primary-fg: #08090A;
+}
+
+/* ---------- Nền chung của prototype ---------- */
+html, body { background: var(--ac-cream); }
+body { margin: 0; color: var(--ac-ink); font-feature-settings: "cv11", "ss01"; }
+#root { min-height: 100dvh; }
+:focus-visible { outline-color: var(--ac-focus-ring); }
