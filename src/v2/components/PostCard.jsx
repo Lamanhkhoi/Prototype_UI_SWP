@@ -2,7 +2,7 @@ import GlareHover from '../reactbits/GlareHover';
 import ClickSpark from '../reactbits/ClickSpark';
 import Photo from '../../components/Photo/Photo';
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import { POST_TYPE } from '../../constants/domain';
 import { formatCount, timeAgo } from '../../utils/format';
 import { useTheme } from '../../utils/theme';

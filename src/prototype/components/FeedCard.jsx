@@ -4,7 +4,7 @@ import Photo from '../../components/Photo/Photo';
 import cx from '../../components/cx';
 import { POST_TYPE } from '../../constants/domain';
 import { formatCount, timeAgo } from '../../utils/format';
-import ProtoAvatar from './ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import s from './FeedCard.module.css';
 
 /**

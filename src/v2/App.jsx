@@ -7,7 +7,7 @@ import Hero, { QuickComposer } from './components/Hero';
 import AskMam from './components/AskMam';
 import PostCard from './components/PostCard';
 import { ActivityCard, RailFooter, ShopsCard, TrendingCard } from './components/Rail';
-import { CATEGORIES, CURRENT_USER, MEAL_TIMES, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../prototype/data';
+import { CATEGORIES, CURRENT_USER, MEAL_TIMES, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../shared/mockData';
 import VersionSwitch from '../VersionSwitch';
 import s from './App.module.css';
 

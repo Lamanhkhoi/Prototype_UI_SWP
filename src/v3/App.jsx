@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useToast } from '../components/Toast/Toast';
-import ProtoAvatar from '../prototype/components/ProtoAvatar';
+import ProtoAvatar from '../shared/ProtoAvatar';
 import AskMam from '../v2/components/AskMam';
 import VersionSwitch from '../VersionSwitch';
 import TopNav from './components/TopNav';
 import PostCard from './components/PostCard';
 import { MamPlan, Shops, SideFooter, Trending } from './components/Side';
-import { CATEGORIES, CURRENT_USER, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../prototype/data';
+import { CATEGORIES, CURRENT_USER, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../shared/mockData';
 import s from './App.module.css';
 
 const greet = () => {

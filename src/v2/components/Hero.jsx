@@ -1,7 +1,7 @@
 import BlurText from '../reactbits/BlurText';
 import RotatingText from '../reactbits/RotatingText';
 import CountUp from '../reactbits/CountUp';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import AiPlanCard from './AiPlanCard';
 import s from './Hero.module.css';
 

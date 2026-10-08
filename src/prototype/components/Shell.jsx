@@ -4,7 +4,7 @@ import Logo from '../../components/AppShell/Logo';
 import cx from '../../components/cx';
 import { APP_NAME } from '../../constants/domain';
 import { useTheme } from '../../utils/theme';
-import ProtoAvatar from './ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import s from './Shell.module.css';
 
 /**

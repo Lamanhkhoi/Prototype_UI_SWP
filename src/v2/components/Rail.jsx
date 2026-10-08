@@ -1,6 +1,6 @@
 import AnimatedList from '../reactbits/AnimatedList';
 import Photo from '../../components/Photo/Photo';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import s from './Rail.module.css';
 
 export function ShopsCard({ shops }) {

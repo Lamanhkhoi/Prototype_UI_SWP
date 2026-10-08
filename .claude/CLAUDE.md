@@ -22,7 +22,9 @@
 - Bộ kit dùng chung: `src/components/` (Button, Menu, Toast, Skeleton, EmptyState, Notice, PostComposer…),
   `src/styles/` (`_tokens.scss`, `theme.scss`), `src/utils/theme.js` (`useTheme`, key `anchay-theme`).
   **Dùng lại component kit trước khi viết component mới.**
-- Dữ liệu giả: `src/kit/mock.js`, `src/kit/sampleData.js` — tên field giống API thật.
+- Dữ liệu giả: `src/shared/mockData.js` (Bảng tin v1/v2/v3) và `src/kit/mock.js`, `src/kit/sampleData.js` (trang trưng bày kit) — tên field giống API thật.
+- `src/shared/`: thứ dùng chung cho nhiều bản (`ProtoAvatar`, `mockData`). Không import chéo giữa `v2/` và `prototype/` (v1).
+- **Màu chỉ định nghĩa ở `src/styles/theme.scss`** (Sáng ở `:root`, Tối ở `:root[data-theme="dark"]`). `v2.css` chỉ còn bố cục.
 - Tài liệu nghiệp vụ (BR, ERD, trạng thái bài viết) nằm trong Project trên claude.ai, không có ở thư mục này.
   Gặp câu hỏi nghiệp vụ (ai được sửa/xóa bài, bài có những trạng thái gì) → hỏi Khôi, không tự đoán.
 

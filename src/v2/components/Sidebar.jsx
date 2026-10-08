@@ -1,5 +1,5 @@
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import { useTheme, setTheme } from '../../utils/theme';
 import s from './Sidebar.module.css';
 

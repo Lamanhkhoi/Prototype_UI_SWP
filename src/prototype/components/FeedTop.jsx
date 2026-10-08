@@ -1,5 +1,5 @@
 import cx from '../../components/cx';
-import ProtoAvatar from './ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import s from './FeedTop.module.css';
 
 /** Ô "Hôm nay bạn nấu món chay gì?" — lối tắt vào PostComposer, thay cho việc chỉ có nút + ở thanh bên. */

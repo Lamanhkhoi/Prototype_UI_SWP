@@ -1,7 +1,7 @@
 import GooeyNav from '../reactbits/GooeyNav';
 import StarBorder from '../reactbits/StarBorder';
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import ProtoAvatar from '../../shared/ProtoAvatar';
 import s from './Header.module.css';
 
 /**
