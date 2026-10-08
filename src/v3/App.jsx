@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useToast } from '../components/Toast/Toast';
-import ProtoAvatar from '../shared/ProtoAvatar';
+import Avatar from '../components/Avatar/Avatar';
 import AskMam from '../v2/components/AskMam';
 import VersionSwitch from '../VersionSwitch';
 import TopNav from './components/TopNav';
@@ -95,7 +95,7 @@ export default function App() {
 
           {!query && (
             <button type="button" className={s.composer} onClick={() => later('Hộp đăng bài')}>
-              <ProtoAvatar name={CURRENT_USER.name} size={40} />
+              <Avatar name={CURRENT_USER.name} size={40} />
               <span>Chia sẻ món chay hôm nay của bạn…</span>
               <i className="bi bi-image" aria-hidden="true" />
             </button>

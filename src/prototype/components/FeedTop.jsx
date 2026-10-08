@@ -1,5 +1,5 @@
 import cx from '../../components/cx';
-import ProtoAvatar from '../../shared/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import s from './FeedTop.module.css';
 
 /** Ô "Hôm nay bạn nấu món chay gì?" — lối tắt vào PostComposer, thay cho việc chỉ có nút + ở thanh bên. */
@@ -8,7 +8,7 @@ export function Composer({ user, onOpen }) {
   return (
     <section className={s.composer} aria-label="Đăng bài mới">
       <div className={s.row}>
-        <ProtoAvatar name={user?.name} src={user?.avatarUrl} size={40} />
+        <Avatar name={user?.name} src={user?.avatarUrl} size={40} />
         <button type="button" className={s.fake} onClick={() => onOpen('blog')}>
           Hôm nay bạn nấu món chay gì{firstName ? `, ${firstName}` : ''}?
         </button>

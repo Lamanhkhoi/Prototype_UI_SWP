@@ -17,6 +17,7 @@
 - 09/10/2026 · 6 màu áp cho TOÀN app (cả Đăng nhập, Admin, Hồ sơ), không chỉ Bảng tin; chế độ Tối toàn app đổi từ "Vườn đêm" xanh rừng sang nâu đen · Khôi sẽ làm UI các trang đó · Khôi
 - 09/10/2026 · Màu định nghĩa 1 chỗ ở `src/styles/theme.scss`; `--ac-*` là tên chính thức, `--v-*` chỉ là bí danh và sẽ đổi dần sang `--ac-*` khi gộp từng component · Một nguồn sự thật · Khôi
 - 09/10/2026 · Thứ dùng chung nhiều bản đặt ở `src/shared/` (`ProtoAvatar`, `mockData`); v2 không còn import từ `src/prototype/` (v1) · Để xóa v1 không làm hỏng v2 · Khôi
+- 09/10/2026 · Gộp ProtoAvatar vào `components/Avatar`: mỗi người 1 tông theo tên (6 tông, ngoại lệ bảng màu như màu dinh dưỡng — DESIGN.md §1.3); chữ pha 64% để đạt ≥ 4.5:1 cả 2 chế độ · Khôi chọn phương án 2 vì đẹp; avatar 1 màu matcha cũ chỉ đạt 3.06:1 · Khôi
 
 ## Đang mở
 

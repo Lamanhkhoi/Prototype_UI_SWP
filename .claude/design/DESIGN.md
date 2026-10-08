@@ -90,6 +90,17 @@ Chỉ dùng trong biểu đồ/thanh dinh dưỡng, luôn kèm chữ hoặc icon
 
 (Bộ cũ `#2F8A4E / #C98A12 / #C9563B / #7B5DB8` của v2 đã bỏ ngày 09/10.)
 
+### 1.3 Ngoại lệ: tông màu avatar chữ cái (ĐÃ CHỐT 09/10/2026)
+
+Avatar chưa có ảnh → nền + chữ pha từ 1 trong 6 tông, chọn theo tên (mỗi người một màu, cố định).
+Chỉ dùng trong `components/Avatar`. Không dùng các tông này ở chỗ khác.
+
+| Tông | `#3D7A3D` | `#A0582A` | `#2F7E8E` | `#8B55A8` | `#A87A00` | `#C0502F` |
+|------|-----------|-----------|-----------|-----------|-----------|-----------|
+
+- Nền: `color-mix(tông 20%, --ac-card)` · Chữ: `color-mix(tông 64%, --ac-ink)`.
+- Tương phản chữ thấp nhất: Sáng **4.87** · Tối **4.79** (≥ 4.5). Đừng tăng 64% lên — ở 72% chữ Tối chỉ còn 4.18.
+
 ---
 
 ## 2. Chữ (type scale)

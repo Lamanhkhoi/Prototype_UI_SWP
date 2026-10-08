@@ -1,6 +1,6 @@
 import AnimatedList from '../reactbits/AnimatedList';
 import Photo from '../../components/Photo/Photo';
-import ProtoAvatar from '../../shared/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import s from './Rail.module.css';
 
 export function ShopsCard({ shops }) {
@@ -45,7 +45,7 @@ export function ActivityCard({ items }) {
         enableArrowNavigation={false}
         items={items.map((a) => (
           <span key={a.id} className={s.activity}>
-            <ProtoAvatar name={a.who} size={28} />
+            <Avatar name={a.who} size={28} />
             <span className={s.activityText}>
               <b>{a.who}</b> {a.what} <em>{a.target}</em>
               <small>{a.when}</small>

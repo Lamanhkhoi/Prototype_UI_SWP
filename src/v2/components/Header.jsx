@@ -1,7 +1,7 @@
 import GooeyNav from '../reactbits/GooeyNav';
 import StarBorder from '../reactbits/StarBorder';
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../shared/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import s from './Header.module.css';
 
 /**
@@ -53,7 +53,7 @@ export default function Header({ nav, user, notificationCount = 0, accountMenu, 
             items={accountMenu}
             renderTrigger={(p) => (
               <button type="button" className={s.avatarBtn} aria-label="Tài khoản của bạn" {...p}>
-                <ProtoAvatar name={user.name} size={34} />
+                <Avatar name={user.name} size={34} />
               </button>
             )}
           />

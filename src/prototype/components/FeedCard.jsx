@@ -4,7 +4,7 @@ import Photo from '../../components/Photo/Photo';
 import cx from '../../components/cx';
 import { POST_TYPE } from '../../constants/domain';
 import { formatCount, timeAgo } from '../../utils/format';
-import ProtoAvatar from '../../shared/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import s from './FeedCard.module.css';
 
 /**
@@ -34,7 +34,7 @@ export default function FeedCard({
   return (
     <article className={cx(s.card, isQuick && s.quick)}>
       <header className={s.head}>
-        <ProtoAvatar name={author.name} src={author.avatarUrl} size={40} />
+        <Avatar name={author.name} src={author.avatarUrl} size={40} />
         <div className={s.who}>
           <a href="#" className={s.name} onClick={(e) => e.preventDefault()}>{author.name}</a>
           <div className={s.meta}>
