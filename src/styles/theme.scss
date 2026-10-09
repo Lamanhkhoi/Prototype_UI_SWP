@@ -172,21 +172,22 @@ $form-check-input-checked-border-color: $ac-moss;
   --v-ai-glow: 0 0 0 3px rgba(249, 166, 32, 0.22);
 }
 
-// ---- Chế độ Tối – cùng 6 màu, đảo sáng/tối: nền lấy từ nâu đen, rêu sáng lên (đã chốt 08/10/2026) ----
+// ---- Chế độ Tối – NỀN lấy đúng bộ nền tối của client (feed-theme.css: đen ngả xanh lá, chốt 09/10/2026);
+//      chữ + rêu + vàng cúc + đất nung vẫn theo bảng 6 màu ----
 // Bật bằng <html data-theme="dark">. Component chỉ cần dùng var(--ac-…) là tự đổi.
 :root[data-theme="dark"] {
   --ac-moss: #8FB083;          // rêu sáng – dùng làm chữ/link được trên nền tối
   --ac-matcha: #7FA372;
-  --ac-cream: #1C1A16;
-  --ac-card: #24211C;
-  --ac-elevated: #2C2923;
+  --ac-cream: #0A0E0B;          // nền trang (client --v-bg)
+  --ac-card: #111713;           // thẻ (client --v-surface)
+  --ac-elevated: #172019;       // rê chuột, ô nhập, menu (client --v-surface-2)
   --ac-ink: #FBF7EE;
   --ac-muted: #A69E8F;
-  --ac-border: #36322B;
-  --ac-border-strong: #4A453C;
+  --ac-border: #1F2A22;
+  --ac-border-strong: #2E3C32;
   --ac-track: #223027;
-  --ac-tip-bg: #2F362B;
-  --ac-field-bg: #2C2923;
+  --ac-tip-bg: #1D2820;         // mục đang chọn (client --v-surface-3)
+  --ac-field-bg: #172019;
   --ac-tag-bg: rgba(143, 176, 131, 0.14);
   --ac-on-accent: #0E1611;
 
@@ -222,20 +223,20 @@ $form-check-input-checked-border-color: $ac-moss;
   --ac-logo-vein: #CFE3BF;
   --ac-create-bg: #E8EDE3;
   --ac-create-fg: #0E1611;
-  --ac-photo-fallback: linear-gradient(135deg, #2A3326 0%, #34412F 55%, #3D5A3D 100%);
+  --ac-photo-fallback: linear-gradient(135deg, #1B2B20 0%, #24392A 55%, #2F4A35 100%);
   --ac-photo-fallback-icon: rgba(143, 176, 131, 0.45);
   color-scheme: dark;
 
   // Tầng --v-*: giá trị Tối cho các tên chưa có --ac-* tương ứng
   --v-text-2: #DCD5C6;
-  --v-dot: rgba(251, 247, 238, 0.04);
-  --v-header-bg: rgba(28, 26, 22, 0.85);
-  --v-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 16px 40px -28px rgba(0, 0, 0, 0.9);
-  --v-shadow-pop: 0 18px 48px -18px rgba(0, 0, 0, 0.75);
+  --v-dot: rgba(255, 255, 255, 0.05);
+  --v-header-bg: rgba(10, 14, 11, 0.82);
+  --v-shadow: 0 1px 0 rgba(0, 0, 0, 0.35), 0 16px 40px -28px rgba(0, 0, 0, 0.9);
+  --v-shadow-pop: 0 18px 48px -18px rgba(0, 0, 0, 0.8);
   --v-accent-hover: #A3C197;
   --v-accent-text: #A7C49B;
   --v-accent-line: rgba(143, 176, 131, 0.35);
-  --v-on-accent: #1C1A16;
+  --v-on-accent: #0A0E0B;
   --v-ai-glow: 0 0 0 3px rgba(249, 166, 32, 0.18);
 
   // Cầu nối sang biến của Bootstrap

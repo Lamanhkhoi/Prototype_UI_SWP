@@ -98,17 +98,6 @@
 .icon { width: 20px; flex: none; font-size: 1.12rem; text-align: center; }
 .label { overflow: hidden; text-overflow: ellipsis; transition: opacity .2s; }
 /* Nhãn "AI": nền Vàng cúc, chữ luôn nâu đen */
-.tag {
-  margin-left: auto;
-  padding: 1px 7px;
-  border-radius: 999px;
-  background: var(--v-marigold);
-  color: #2A2620;
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-
 /* ---------- Đáy ---------- */
 .bottom { display: grid; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--v-line); }
 
@@ -155,6 +144,7 @@
 }
 .link:hover { background: var(--v-surface-2); color: var(--v-text); text-decoration: none; }
 .link .icon { font-size: 1rem; }
+.linkAlert, .linkAlert:hover { color: var(--ac-alert); }
 .userRow {
   display: flex;
   align-items: center;
@@ -167,17 +157,6 @@
 .accountText { display: grid; flex: 1; min-width: 0; line-height: 1.25; white-space: nowrap; }
 .accountText b { overflow: hidden; font-size: 0.88rem; text-overflow: ellipsis; }
 .accountText small { color: var(--v-muted); font-size: 0.74rem; }
-.more {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--v-muted);
-}
-.more:hover, .more[aria-expanded="true"] { background: var(--v-surface-2); color: var(--v-text); }
 
 /* Avatar khi thu gọn: viền xanh rêu khi menu đang mở */
 .accountWrap { display: flex; justify-content: center; width: 100%; }
@@ -194,7 +173,7 @@
 .avatarBtn[aria-expanded="true"] { border-color: var(--v-accent); }
 
 /* ---------- Thu gọn ---------- */
-.collapsed .name, .collapsed .label, .collapsed .tag { display: none; }
+.collapsed .name, .collapsed .label { display: none; }
 .collapsed .top { flex-direction: column; height: auto; gap: 10px; }
 .collapsed .brand { flex: none; padding: 0; }
 .collapsed .create, .collapsed .item { justify-content: center; padding: 0; }

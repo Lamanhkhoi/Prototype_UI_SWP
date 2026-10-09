@@ -22,7 +22,6 @@ export default function Sidebar({
       <a key={n.key} href={n.href} className={`${s.item} ${on ? s.on : ''}`} aria-current={on ? 'page' : undefined} title={collapsed ? n.label : undefined}>
         <i className={`bi bi-${on && n.iconActive ? n.iconActive : n.icon} ${s.icon}`} aria-hidden="true" />
         <span className={s.label}>{n.label}</span>
-        {n.tag && <span className={s.tag}>{n.tag}</span>}
       </a>
     );
   };
@@ -93,8 +92,8 @@ export default function Sidebar({
             />
           ) : (
             <div className={s.accountBox}>
-              {accountLinks.map((l) => (
-                <a key={l.label} href={l.href || '#'} className={s.link} onClick={(e) => { e.preventDefault(); l.onClick?.(); }}>
+              {[...accountLinks, ...accountMenu].map((l) => (
+                <a key={l.label} href={l.href || '#'} className={`${s.link} ${l.tone === 'alert' ? s.linkAlert : ''}`} onClick={(e) => { e.preventDefault(); l.onClick?.(); }}>
                   <i className={`bi bi-${l.icon} ${s.icon}`} aria-hidden="true" />
                   <span>{l.label}</span>
                 </a>
@@ -105,16 +104,6 @@ export default function Sidebar({
                   <b>{user.name}</b>
                   <small>{user.role}</small>
                 </span>
-                <Menu
-                  side="right"
-                  width={200}
-                  items={accountMenu}
-                  renderTrigger={(p) => (
-                    <button type="button" className={s.more} aria-label="Tuỳ chọn tài khoản" {...p}>
-                      <i className="bi bi-three-dots" aria-hidden="true" />
-                    </button>
-                  )}
-                />
               </div>
             </div>
           )}

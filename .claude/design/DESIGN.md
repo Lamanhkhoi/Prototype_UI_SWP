@@ -14,7 +14,7 @@
 3. Mỗi thay đổi UI phải chạy được ở cả Sáng và Tối.
 4. Làm xong: chụp màn hình (Playwright) Sáng + Tối, đối chiếu checklist cuối `ANTI-SLOP.md`.
 5. **Chữ đặt TRÊN nền màu không bao giờ dùng `--v-text`** (vì `--v-text` đảo màu theo Sáng/Tối). Dùng biến "on-":
-   - Trên nền xanh rêu → `--v-on-accent` (Sáng `#FFFFFF`, Tối `#1C1A16`)
+   - Trên nền xanh rêu → `--v-on-accent` (Sáng `#FFFFFF`, Tối `#0A0E0B`)
    - Trên nền vàng cúc → `--ac-on-highlight` (`#2A2620` ở CẢ HAI chế độ)
    - Trên nền đất nung → `--ac-on-alert` (xem lưu ý chế độ Tối ở DECISIONS.md "Đang mở")
    `--v-text` chỉ dùng cho chữ đặt trên nền kem / ngà (`--v-bg`, `--v-surface`).
@@ -23,12 +23,15 @@
 
 ## 1. Màu — 6 màu thương hiệu (ĐÃ CHỐT 08/10/2026)
 
+> Chế độ Tối: các màu NỀN (nền trang, thẻ, bề mặt 2/3, viền) lấy đúng bộ nền tối của client `feed-theme.css` — đen ngả xanh lá (chốt 09/10/2026).
+> Chữ, xanh rêu, vàng cúc, đất nung ở chế độ Tối vẫn theo bảng dưới.
+
 Tỉ lệ 60-30-10: nền chiếm ~60%, bề mặt ~30%, màu nhấn ≤10%.
 
 | # | Tên | Hex (Sáng) | Hex (Tối) | Biến | Dùng cho | Cấm |
 |---|-----|-----------|-----------|------|----------|-----|
-| 1 | Nền kem | `#FBF7EE` | `#1C1A16` | `--v-bg` | Nền trang (~60%) | — |
-| 2 | Bề mặt ngà | `#FFFDF8` | `#24211C` | `--v-surface` | Thẻ, sidebar, hộp thoại (~30%) | — |
+| 1 | Nền kem | `#FBF7EE` | `#0A0E0B` | `--v-bg` | Nền trang (~60%) | — |
+| 2 | Bề mặt ngà | `#FFFDF8` | `#111713` | `--v-surface` | Thẻ, sidebar, hộp thoại (~30%) | — |
 | 3 | Chữ nâu đen | `#2A2620` | `#FBF7EE` | `--v-text` | Chữ chính, icon | Không dùng đen thuần `#000` |
 | 4 | Xanh rêu | `#3D5A3D` | `#8FB083` | `--v-accent` | 1 hành động chính / khu vực, tab đang chọn, link | Không dùng làm nền diện rộng |
 | 5 | Vàng cúc | `#F9A620` | `#F9A620` | `--v-marigold` | Nhãn AI, "MỚI", điểm nhấn hiếm | **Không bao giờ làm màu chữ**; chữ trên nó luôn `#2A2620` qua biến `--ac-on-highlight` (KHÔNG dùng `--v-text`) |
@@ -48,8 +51,8 @@ Lý do các cấm (đã đo tỉ lệ tương phản, chuẩn WCAG AA: chữ th�
 | **(Tối) Kem `#FBF7EE` / Vàng cúc** | **1.87** | ❌ → vì sao KHÔNG dùng `--v-text` cho chữ trên vàng: ở chế độ Tối `--v-text` đổi thành kem |
 | Trắng / Đất nung | 5.32 | ✅ |
 | Đất nung / Nền kem | 4.97 | ✅ |
-| (Tối) Chữ phụ `#A69E8F` / Thẻ `#24211C` | 6.04 | ✅ |
-| (Tối) Nền `#1C1A16` / Rêu sáng `#8FB083` | 7.20 | ✅ |
+| (Tối) Chữ phụ `#A69E8F` / Thẻ `#111713` | 6.84 | ✅ |
+| (Tối) Nền `#0A0E0B` / Rêu sáng `#8FB083` | 8.06 | ✅ |
 
 ### 1.1 Màu phái sinh (không phải màu mới)
 
@@ -58,22 +61,22 @@ Tất cả đã có biến trong `src/v2/v2.css` — dùng biến, không tự p
 
 | Vai trò | Sáng | Tối | Biến |
 |---------|------|-----|------|
-| Bề mặt 2 (hover, ô nhập) | `#F5F0E4` | `#2C2923` | `--v-surface-2` |
-| Bề mặt 3 (mục đang chọn) | `#E7EEDF` | `#2F362B` | `--v-surface-3` |
+| Bề mặt 2 (hover, ô nhập) | `#F5F0E4` | `#172019` | `--v-surface-2` |
+| Bề mặt 3 (mục đang chọn) | `#E7EEDF` | `#1D2820` | `--v-surface-3` |
 | Chữ phụ 2 | `#4A443B` | `#DCD5C6` | `--v-text-2` |
 | Chữ mờ | `#6F675A` | `#A69E8F` | `--v-muted` |
-| Viền mảnh (trang trí) | `#E8E0D0` | `#36322B` | `--v-line` |
-| Viền đậm | `#CFC4AE` | `#4A453C` | `--v-line-2` |
+| Viền mảnh (trang trí) | `#E8E0D0` | `#1F2A22` | `--v-line` |
+| Viền đậm | `#CFC4AE` | `#2E3C32` | `--v-line-2` |
 | Rêu hover | `#324B32` | `#A3C197` | `--v-accent-hover` |
 | Rêu nền nhạt | `#E7EEDF` | rêu 14% | `--v-accent-soft` |
-| Chữ trên nền rêu | `#FFFFFF` | `#1C1A16` | `--v-on-accent` |
+| Chữ trên nền rêu | `#FFFFFF` | `#0A0E0B` | `--v-on-accent` |
 | Chữ trên nền vàng cúc | `#2A2620` | `#2A2620` (giữ nguyên) | `--ac-on-highlight` |
 
 | Viền ô nhập | `#958B78` | `#7E7563` | `--v-field-line` (MỚI) |
 
 **Viền ô nhập (ĐÃ CHỐT 08/10):** ô nhập, ô chọn, checkbox dùng `--v-field-line`, KHÔNG dùng `--v-line-2`.
 Lý do: `#CFC4AE` chỉ đạt 1.62 trên nền kem; WCAG 1.4.11 yêu cầu viền thành phần UI ≥ 3:1.
-`#958B78` đạt 3.15 (nền kem) / 3.31 (ngà); `#7E7563` đạt 3.52 trên thẻ tối. Biến mới — cần thêm vào `v2.css`.
+`#958B78` đạt 3.15 (nền kem) / 3.31 (ngà); `#7E7563` đạt 3.99 trên thẻ tối `#111713` / 3.67 trên ô nhập tối `#172019`. Biến mới — cần thêm vào `v2.css`.
 
 ### 1.2 Ngoại lệ: màu dữ liệu dinh dưỡng
 

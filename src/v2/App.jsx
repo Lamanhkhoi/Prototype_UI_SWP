@@ -33,7 +33,7 @@ const ACTIVITY = [
 const SIDE_NAV = [
   { key: 'feed', label: 'Bảng tin', icon: 'house', iconActive: 'house-fill', href: '#' },
   { key: 'recipes', label: 'Công thức', icon: 'journal-richtext', href: '#' },
-  { key: 'meal-plan', label: 'Thực đơn AI', icon: 'calendar-week', iconActive: 'calendar-week-fill', href: '#', tag: 'AI' },
+  { key: 'meal-plan', label: 'Thực đơn AI', icon: 'calendar-week', iconActive: 'calendar-week-fill', href: '#' },
   { key: 'shops', label: 'Quán chay', icon: 'shop', href: '#' },
 ];
 
@@ -89,7 +89,7 @@ export default function App() {
     { icon: 'person', label: 'Hồ sơ cá nhân', onClick: () => later('Hồ sơ cá nhân') },
     { icon: 'journal-text', label: 'Bài của tôi', onClick: () => later('Bài của tôi') },
   ];
-  // Nút ••• : việc ít dùng + Đăng xuất (màu Đất nung)
+  // Đăng xuất (màu Đất nung): mở rộng → nằm dưới "Bài của tôi"; thu gọn → cuối popup avatar
   const accountMenu = [
     { icon: 'box-arrow-right', label: 'Đăng xuất', tone: 'alert', onClick: () => later('Đăng xuất') },
   ];
