@@ -2,7 +2,7 @@ import GlareHover from '../reactbits/GlareHover';
 import ClickSpark from '../reactbits/ClickSpark';
 import Photo from '../../components/Photo/Photo';
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import { POST_TYPE } from '../../constants/domain';
 import { formatCount, timeAgo } from '../../utils/format';
 import { useTheme } from '../../utils/theme';
@@ -26,7 +26,7 @@ export default function PostCard({
   return (
     <article className={`${s.card} ${isQuick ? s.quick : ''}`}>
       <header className={s.head}>
-        <ProtoAvatar name={author.name} size={40} />
+        <Avatar name={author.name} size={40} />
         <div className={s.who}>
           <b>{author.name}</b>
           <span>

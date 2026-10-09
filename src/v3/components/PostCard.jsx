@@ -1,6 +1,6 @@
 import Photo from '../../components/Photo/Photo';
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import { POST_TYPE } from '../../constants/domain';
 import { formatCount, timeAgo } from '../../utils/format';
 import s from './PostCard.module.css';
@@ -45,7 +45,7 @@ export default function PostCard({
         {excerpt && <p className={s.excerpt}>{excerpt}</p>}
 
         <div className={s.meta}>
-          <ProtoAvatar name={author.name} size={28} />
+          <Avatar name={author.name} size={28} />
           <span className={s.who}>
             <b>{author.name}</b>
             <span>

@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useToast } from '../components/Toast/Toast';
-import ProtoAvatar from '../prototype/components/ProtoAvatar';
+import Avatar from '../components/Avatar/Avatar';
 import AskMam from '../v2/components/AskMam';
 import VersionSwitch from '../VersionSwitch';
 import TopNav from './components/TopNav';
 import PostCard from './components/PostCard';
 import { MamPlan, Shops, SideFooter, Trending } from './components/Side';
-import { CATEGORIES, CURRENT_USER, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../prototype/data';
+import { CATEGORIES, CURRENT_USER, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../shared/mockData';
 import s from './App.module.css';
 
 const greet = () => {
@@ -95,7 +95,7 @@ export default function App() {
 
           {!query && (
             <button type="button" className={s.composer} onClick={() => later('Hộp đăng bài')}>
-              <ProtoAvatar name={CURRENT_USER.name} size={40} />
+              <Avatar name={CURRENT_USER.name} size={40} />
               <span>Chia sẻ món chay hôm nay của bạn…</span>
               <i className="bi bi-image" aria-hidden="true" />
             </button>

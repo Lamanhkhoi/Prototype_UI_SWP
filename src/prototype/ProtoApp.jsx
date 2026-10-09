@@ -6,7 +6,7 @@ import FeedCard from './components/FeedCard';
 import { Composer, CategoryFilter } from './components/FeedTop';
 import { AiPlanCard, ShopsCard, TrendingCard, RailFooter } from './components/Rail';
 import ProtoControls from './components/ProtoControls';
-import { CATEGORIES, CURRENT_USER, NAV, POSTS, SHOPS, SHORTCUTS, TODAY_PLAN, TRENDING } from './data';
+import { CATEGORIES, CURRENT_USER, NAV, POSTS, SHOPS, SHORTCUTS, TODAY_PLAN, TRENDING } from '../shared/mockData';
 
 /**
  * Màn Bảng tin – Prototype UI v1.

@@ -1,5 +1,5 @@
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import { useTheme } from '../../utils/theme';
 import s from './TopNav.module.css';
 
@@ -71,7 +71,7 @@ export default function TopNav({
             items={accountMenu}
             renderTrigger={(p) => (
               <button type="button" className={s.account} aria-label={`Tài khoản: ${user.name}`} {...p}>
-                <ProtoAvatar name={user.name} size={36} />
+                <Avatar name={user.name} size={36} />
               </button>
             )}
           />

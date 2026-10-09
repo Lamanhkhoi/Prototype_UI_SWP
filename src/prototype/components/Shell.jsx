@@ -4,7 +4,7 @@ import Logo from '../../components/AppShell/Logo';
 import cx from '../../components/cx';
 import { APP_NAME } from '../../constants/domain';
 import { useTheme } from '../../utils/theme';
-import ProtoAvatar from './ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import s from './Shell.module.css';
 
 /**
@@ -89,7 +89,7 @@ export default function Shell({
               items={menuItems}
               renderTrigger={(p) => (
                 <button type="button" className={s.account} aria-label="Tài khoản của bạn" {...p}>
-                  <ProtoAvatar name={user.name} src={user.avatarUrl} size={34} />
+                  <Avatar name={user.name} src={user.avatarUrl} size={34} />
                   <span className={s.accountText}>
                     <b>{user.name}</b>
                     <span>{user.role}</span>
@@ -112,7 +112,7 @@ export default function Shell({
               <span className={s.barCompact}>{bell}</span>
               {user && (
                 <span className={s.mobileOnly}>
-                  <ProtoAvatar name={user.name} src={user.avatarUrl} size={32} />
+                  <Avatar name={user.name} src={user.avatarUrl} size={32} />
                 </span>
               )}
             </div>

@@ -1,5 +1,5 @@
 import Menu from '../../components/Menu/Menu';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import { useTheme, setTheme } from '../../utils/theme';
 import s from './Sidebar.module.css';
 
@@ -87,7 +87,7 @@ export default function Sidebar({
               items={collapsedMenu}
               renderTrigger={(p) => (
                 <button type="button" className={s.avatarBtn} aria-label={`Tài khoản: ${user.name}`} {...p}>
-                  <ProtoAvatar name={user.name} size={34} />
+                  <Avatar name={user.name} size={34} />
                 </button>
               )}
             />
@@ -100,7 +100,7 @@ export default function Sidebar({
                 </a>
               ))}
               <div className={s.userRow}>
-                <ProtoAvatar name={user.name} size={34} />
+                <Avatar name={user.name} size={34} />
                 <span className={s.accountText}>
                   <b>{user.name}</b>
                   <small>{user.role}</small>

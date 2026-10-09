@@ -1,7 +1,7 @@
 import BlurText from '../reactbits/BlurText';
 import RotatingText from '../reactbits/RotatingText';
 import CountUp from '../reactbits/CountUp';
-import ProtoAvatar from '../../prototype/components/ProtoAvatar';
+import Avatar from '../../components/Avatar/Avatar';
 import AiPlanCard from './AiPlanCard';
 import s from './Hero.module.css';
 
@@ -62,7 +62,7 @@ export default function Hero({ user, stats, plan, onOpenPlan }) {
 export function QuickComposer({ user, onCompose }) {
   return (
     <button type="button" className={s.composer} onClick={onCompose}>
-      <ProtoAvatar name={user.name} size={36} />
+      <Avatar name={user.name} size={36} />
       <span className={s.placeholder}>Chia sẻ món chay hôm nay của bạn…</span>
       <span className={s.tools} aria-hidden="true">
         <i className="bi bi-image" />

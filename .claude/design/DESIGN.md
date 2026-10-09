@@ -7,7 +7,8 @@
 
 ## 0. Luật cho agent (đọc trước khi viết bất kỳ dòng UI nào)
 
-1. Chỉ dùng biến CSS (`var(--v-*)`, `var(--ac-*)`). Không viết mã hex trực tiếp trong component.
+1. Chỉ dùng biến CSS (`var(--ac-*)`; `var(--v-*)` là tên cũ của v2, chỉ là bí danh). Không viết mã hex trực tiếp trong component.
+   Mọi biến màu được định nghĩa ở **một chỗ duy nhất: `src/styles/theme.scss`** — không khai báo lại ở file khác.
 2. Không thêm màu, cỡ chữ, khoảng cách, bo góc nào ngoài các bảng dưới đây.
    Cần giá trị mới → dừng lại, đề xuất cho Khôi, ghi vào `DECISIONS.md` mục "đang mở".
 3. Mỗi thay đổi UI phải chạy được ở cả Sáng và Tối.
@@ -78,7 +79,7 @@ Lý do: `#CFC4AE` chỉ đạt 1.62 trên nền kem; WCAG 1.4.11 yêu cầu vi�
 
 Chỉ dùng trong biểu đồ/thanh dinh dưỡng, luôn kèm chữ hoặc icon (không dựa vào màu).
 
-**ĐÃ CHỐT 08/10:** Sáng giữ bộ gốc của client (`_tokens.scss`). Tối dùng bộ của prototype (client chưa có bộ Tối).
+**ĐÃ CHỐT 08/10 · đã áp vào code 09/10:** Sáng giữ bộ gốc của client (`_tokens.scss`). Tối dùng bộ của prototype (client chưa có bộ Tối).
 
 | Nhóm chất | Sáng | Tối | Biến |
 |-----------|------|-----|------|
@@ -87,7 +88,18 @@ Chỉ dùng trong biểu đồ/thanh dinh dưỡng, luôn kèm chữ hoặc icon
 | Béo | `#B7472A` | `#E98A76` | `--ac-fat` |
 | Xơ | `#7B4B94` | `#A993D8` | `--ac-fiber` |
 
-⚠️ Prototype `v2.css` (Sáng) đang dùng `#2F8A4E / #C98A12 / #C9563B / #7B5DB8` → sửa về bộ trên.
+(Bộ cũ `#2F8A4E / #C98A12 / #C9563B / #7B5DB8` của v2 đã bỏ ngày 09/10.)
+
+### 1.3 Ngoại lệ: tông màu avatar chữ cái (ĐÃ CHỐT 09/10/2026)
+
+Avatar chưa có ảnh → nền + chữ pha từ 1 trong 6 tông, chọn theo tên (mỗi người một màu, cố định).
+Chỉ dùng trong `components/Avatar`. Không dùng các tông này ở chỗ khác.
+
+| Tông | `#3D7A3D` | `#A0582A` | `#2F7E8E` | `#8B55A8` | `#A87A00` | `#C0502F` |
+|------|-----------|-----------|-----------|-----------|-----------|-----------|
+
+- Nền: `color-mix(tông 20%, --ac-card)` · Chữ: `color-mix(tông 64%, --ac-ink)`.
+- Tương phản chữ thấp nhất: Sáng **4.87** · Tối **4.79** (≥ 4.5). Đừng tăng 64% lên — ở 72% chữ Tối chỉ còn 4.18.
 
 ---
 

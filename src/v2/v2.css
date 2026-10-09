@@ -5,108 +5,10 @@
    ===================================================================== */
 
 /* =====================================================================
-   BẢNG 6 MÀU (Figma "Bảng 6 màu"):
-     Nền kem #FBF7EE · Bề mặt ngà #FFFDF8 · Chữ nâu đen #2A2620
-     Xanh rêu #3D5A3D (hành động chính) · Vàng cúc #F9A620 (AI / MỚI) · Đất nung #B7472A (cảnh báo / xoá)
-   Các biến khác chỉ là sắc đậm/nhạt của 6 màu này, không thêm màu mới.
+   MÀU: KHÔNG định nghĩa ở đây nữa.
+   Mọi màu Sáng/Tối (cả --ac-* lẫn --v-*) nằm ở 1 chỗ duy nhất: src/styles/theme.scss
+   (bảng 6 màu — xem .claude/design/DESIGN.md). File này chỉ còn bố cục + vài lớp tiện ích của v2.
    ===================================================================== */
-
-/* ---------- Tối: cùng 6 màu, đảo sáng/tối (nền lấy từ nâu đen) ---------- */
-:root[data-v2] {
-  --v-bg: #1C1A16;
-  --v-surface: #24211C;        /* thẻ */
-  --v-surface-2: #2C2923;      /* rê chuột, ô nhập */
-  --v-surface-3: #2F362B;      /* mục đang chọn (ngả xanh rêu) */
-  --v-line: #36322B;
-  --v-line-2: #4A453C;
-  --v-text: #FBF7EE;
-  --v-text-2: #DCD5C6;
-  --v-muted: #A69E8F;
-  --v-dot: rgba(251, 247, 238, 0.04);
-  --v-header-bg: rgba(28, 26, 22, 0.85);
-  --v-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 16px 40px -28px rgba(0, 0, 0, 0.9);
-  --v-shadow-pop: 0 18px 48px -18px rgba(0, 0, 0, 0.75);
-
-  /* Xanh rêu sáng hơn để đủ tương phản trên nền tối */
-  --v-accent: #8FB083;
-  --v-accent-hover: #A3C197;
-  --v-accent-text: #A7C49B;
-  --v-accent-soft: rgba(143, 176, 131, 0.14);
-  --v-accent-line: rgba(143, 176, 131, 0.35);
-  --v-on-accent: #1C1A16;
-  --v-marigold: #F9A620;
-
-  /* AI = Vàng cúc (không còn neon) */
-  --v-ai-grad: #F9A620;
-  --v-ai-glow: 0 0 0 3px rgba(249, 166, 32, 0.18);
-
-  /* Map sang biến của bộ kit → Menu, Toast, Photo... tự hợp */
-  --ac-cream: var(--v-bg);
-  --ac-card: var(--v-surface);
-  --ac-elevated: var(--v-surface-2);
-  --ac-ink: var(--v-text);
-  --ac-muted: var(--v-muted);
-  --ac-border: var(--v-line);
-  --ac-border-strong: var(--v-line-2);
-  --ac-tip-bg: var(--v-surface-3);
-  --ac-tag-bg: var(--v-accent-soft);
-  --ac-moss: var(--v-accent);
-  --ac-field-bg: var(--v-surface-2);
-  --ac-highlight: #F9A620;
-  --ac-alert: #E07A5F;
-  --ac-bad-fg: #EFA08B;
-  --ac-alert-soft: rgba(224, 122, 95, 0.12);
-  --ac-focus-ring: rgba(143, 176, 131, 0.45);
-  --ac-photo-fallback: linear-gradient(135deg, #2A3326 0%, #34412F 55%, #3D5A3D 100%);
-  --ac-photo-fallback-icon: rgba(143, 176, 131, 0.45);
-  /* Màu dinh dưỡng: ngoại lệ cho biểu đồ, chỉ dùng trong biểu đồ dinh dưỡng */
-  --ac-protein: #6CC58A;
-  --ac-carb: #E9B44C;
-  --ac-fat: #E98A76;
-  --ac-fiber: #A993D8;
-  color-scheme: dark;
-}
-
-/* ---------- Sáng: đúng bảng 6 màu ---------- */
-:root[data-v2][data-theme="light"] {
-  --v-bg: #FBF7EE;             /* Nền kem – 60% */
-  --v-surface: #FFFDF8;        /* Bề mặt ngà – 30% */
-  --v-surface-2: #F5F0E4;
-  --v-surface-3: #E7EEDF;      /* mục đang chọn (xanh rêu rất nhạt) */
-  --v-line: #E8E0D0;
-  --v-line-2: #CFC4AE;
-  --v-text: #2A2620;           /* Chữ nâu đen */
-  --v-text-2: #4A443B;
-  --v-muted: #6F675A;
-  --v-dot: rgba(42, 38, 32, 0.05);
-  --v-header-bg: rgba(251, 247, 238, 0.88);
-  --v-shadow: 0 1px 2px rgba(42, 38, 32, 0.04), 0 14px 32px -26px rgba(42, 38, 32, 0.3);
-  --v-shadow-pop: 0 18px 48px -18px rgba(42, 38, 32, 0.22);
-
-  --v-accent: #3D5A3D;         /* Xanh rêu – hành động chính */
-  --v-accent-hover: #324B32;
-  --v-accent-text: #3D5A3D;
-  --v-accent-soft: #E7EEDF;
-  --v-accent-line: #BFD0B6;
-  --v-on-accent: #FFFFFF;
-  --v-marigold: #F9A620;       /* Vàng cúc – AI / MỚI (chỉ làm nền, chữ luôn nâu đen) */
-
-  --v-ai-grad: #F9A620;
-  --v-ai-glow: 0 0 0 3px rgba(249, 166, 32, 0.22);
-
-  --ac-highlight: #F9A620;
-  --ac-alert: #B7472A;         /* Đất nung – cảnh báo / xoá */
-  --ac-bad-fg: #8E3520;
-  --ac-alert-soft: #FBF1EC;
-  --ac-focus-ring: rgba(61, 90, 61, 0.35);
-  --ac-photo-fallback: linear-gradient(135deg, #DCE7D2 0%, #B9CFAE 55%, #8FB083 100%);
-  --ac-photo-fallback-icon: rgba(255, 255, 255, 0.7);
-  --ac-protein: #2F8A4E;
-  --ac-carb: #C98A12;
-  --ac-fat: #C9563B;
-  --ac-fiber: #7B5DB8;
-  color-scheme: light;
-}
 
 :root[data-v2] body {
   margin: 0;
@@ -148,7 +50,7 @@
   place-items: center;
   border-radius: 30%;
   background: var(--v-ai-grad);
-  color: #2A2620;
+  color: var(--ac-on-highlight); /* nâu đen #2A2620 ở cả Sáng lẫn Tối */
   box-shadow: var(--v-ai-glow);
   animation: v2AiPulse 3.2s ease-in-out infinite;
 }
