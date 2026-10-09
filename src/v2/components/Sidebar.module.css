@@ -99,7 +99,7 @@
 .label { overflow: hidden; text-overflow: ellipsis; transition: opacity .2s; }
 /* Nhãn "AI": nền Vàng cúc, chữ luôn nâu đen */
 /* ---------- Đáy ---------- */
-.bottom { display: grid; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--v-line); }
+.bottom { display: grid; gap: 10px; margin-top: auto; padding-top: 12px; }
 
 /* Nút Sáng / Tối — cùng kiểu với FeedSidebar của client */
 .theme {
@@ -123,8 +123,7 @@
 /* Hộp tài khoản: lối tắt + người dùng */
 .accountBox {
   display: grid;
-  gap: 2px;
-  padding: 6px;
+  overflow: hidden; /* hover của hàng tên tràn sát viền, bo theo góc hộp */
   border: 1px solid var(--v-line);
   border-radius: 14px;
   background: var(--v-surface);
@@ -145,15 +144,31 @@
 .link:hover { background: var(--v-surface-2); color: var(--v-text); text-decoration: none; }
 .link .icon { font-size: 1rem; }
 .linkAlert, .linkAlert:hover { color: var(--ac-alert); }
+.drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows .25s var(--ac-ease-out, ease-out);
+}
+.drawerOpen { grid-template-rows: 1fr; }
+.drawerClip { min-height: 0; overflow: hidden; }
+.drawerInner { display: grid; gap: 2px; padding: 6px 6px 4px; border-bottom: 1px solid var(--v-line); }
 .userRow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 4px;
-  padding: 8px 4px 2px 6px;
-  border-top: 1px solid var(--v-line);
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--v-text);
+  text-align: left;
 }
+.userRow:hover { background: var(--v-surface-2); }
+.chev { color: var(--v-muted); transition: transform .25s var(--ac-ease-out, ease-out); }
+.userRow[aria-expanded="true"] .chev { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .drawer, .chev { transition: none; } }
 .accountText { display: grid; flex: 1; min-width: 0; line-height: 1.25; white-space: nowrap; }
 .accountText b { overflow: hidden; font-size: 0.88rem; text-overflow: ellipsis; }
 .accountText small { color: var(--v-muted); font-size: 0.74rem; }

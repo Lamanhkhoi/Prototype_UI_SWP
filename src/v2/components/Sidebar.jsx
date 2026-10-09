@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Menu from '../../components/Menu/Menu';
 import Avatar from '../../components/Avatar/Avatar';
 import { useTheme, setTheme } from '../../utils/theme';
@@ -15,6 +16,7 @@ export default function Sidebar({
 }) {
   const [theme] = useTheme();
   const dark = theme === 'dark';
+  const [accountOpen, setAccountOpen] = useState(false); // chỉ đổi khi bấm hộp tài khoản, không theo thu/mở sidebar
 
   const item = (n) => {
     const on = n.key === activeKey;
@@ -25,6 +27,13 @@ export default function Sidebar({
       </a>
     );
   };
+
+  const link = (l) => (
+    <a key={l.label} href={l.href || '#'} className={`${s.link} ${l.tone === 'alert' ? s.linkAlert : ''}`} onClick={(e) => { e.preventDefault(); l.onClick?.(); }}>
+      <i className={`bi bi-${l.icon} ${s.icon}`} aria-hidden="true" />
+      <span>{l.label}</span>
+    </a>
+  );
 
   // Thu gọn: không còn chỗ cho hộp tài khoản → gộp lối tắt vào popup của avatar
   const collapsedMenu = [...accountLinks, { divider: true }, ...accountMenu];
@@ -92,19 +101,24 @@ export default function Sidebar({
             />
           ) : (
             <div className={s.accountBox}>
-              {[...accountLinks, ...accountMenu].map((l) => (
-                <a key={l.label} href={l.href || '#'} className={`${s.link} ${l.tone === 'alert' ? s.linkAlert : ''}`} onClick={(e) => { e.preventDefault(); l.onClick?.(); }}>
-                  <i className={`bi bi-${l.icon} ${s.icon}`} aria-hidden="true" />
-                  <span>{l.label}</span>
-                </a>
-              ))}
-              <div className={s.userRow}>
+              <div className={`${s.drawer} ${accountOpen ? s.drawerOpen : ''}`} id="account-links" inert={!accountOpen}>
+                <div className={s.drawerClip}><div className={s.drawerInner}>{[...accountLinks, ...accountMenu].map(link)}</div></div>
+              </div>
+              <button
+                type="button"
+                className={s.userRow}
+                onClick={() => setAccountOpen((o) => !o)}
+                aria-expanded={accountOpen}
+                aria-controls="account-links"
+                aria-label={`Tài khoản ${user.name}, ${accountOpen ? 'thu gọn' : 'mở'} lối tắt`}
+              >
                 <Avatar name={user.name} size={34} />
                 <span className={s.accountText}>
                   <b>{user.name}</b>
                   <small>{user.role}</small>
                 </span>
-              </div>
+                <i className={`bi bi-chevron-up ${s.chev}`} aria-hidden="true" />
+              </button>
             </div>
           )}
         </div>
