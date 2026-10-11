@@ -19,6 +19,8 @@
 - 09/10/2026 · Thứ dùng chung nhiều bản đặt ở `src/shared/` (`ProtoAvatar`, `mockData`); v2 không còn import từ `src/prototype/` (v1) · Để xóa v1 không làm hỏng v2 · Khôi
 - 09/10/2026 · Gộp ProtoAvatar vào `components/Avatar`: mỗi người 1 tông theo tên (6 tông, ngoại lệ bảng màu như màu dinh dưỡng — DESIGN.md §1.3); chữ pha 64% để đạt ≥ 4.5:1 cả 2 chế độ · Khôi chọn phương án 2 vì đẹp; avatar 1 màu matcha cũ chỉ đạt 3.06:1 · Khôi
 - 09/10/2026 · Nền chế độ Tối đổi từ nâu đen (#1C1A16) sang đúng bộ nền tối của client (nền #0A0E0B, thẻ #111713, bề mặt 2 #172019, bề mặt 3 #1D2820, viền #1F2A22 / #2E3C32); chữ + rêu + vàng cúc + đất nung giữ theo 6 màu · Đồng bộ với giao diện client đang chạy; mọi cặp chữ/nền vẫn ≥ 5.17:1 · Khôi
+- 11/10/2026 · Trang Tạo công thức chốt bố cục B: khung 976 = form 608 + gap 32 + cột phụ 336; khối padding 24, bo 20, khối ↔ khối 24; cột phụ (Xem trước + Gửi) cố định khi cuộn; bỏ thẻ Tiến độ; Xem trước là thẻ luôn hiện, không phải popup; thẻ xem trước dùng bo góc lá · B to rõ nhất; dòng "Còn thiếu: …" dưới nút Gửi đã báo thiếu gì · Khôi
+- 11/10/2026 · Thanh bên v2 về đúng 4 mục thật của client (Bảng tin, Món chay, Thực đơn, Quán chay), không tô sáng mục nào khi ở trang Tạo công thức; lối vào Tạo công thức là 1 mục trong hộp tài khoản · Theo thảo luận nghiệp vụ 11/10 · Khôi
 
 ## Đang mở
 
@@ -27,3 +29,6 @@
 - Chữ trắng trên đất nung ở chế độ Tối (`#FFFFFF` / `#E07A5F`) chỉ đạt 2.95:1 (cần 4.5 cho chữ nhỏ như số trên chuông thông báo). Đề xuất: Tối dùng chữ `#1C1A16` (5.89:1)
 - Một số biến Tối của kit vẫn còn tông xanh rừng cũ (nền trạng thái ok/warn/bad, Toast, logo, nút Bootstrap `.btn-primary`/`.btn-outline-primary`, link Bootstrap `#8DB580`). v2 chưa dùng nên chưa đổi → rà lại khi gộp các component đó
 - Persona, IA, responsive — cần cả nhóm thống nhất
+- Trang Tạo công thức: bố cục khi màn hình hẹp đang để tạm (< 1100px cột phụ xuống dưới form, hết cố định) → chốt cùng mục responsive
+- Ô nhập của kit (Bootstrap `form-control`) chưa dùng `--v-field-line` như DESIGN.md §1.1 → viền ô vẫn mờ; nên sửa 1 lần cho cả kit
+- Dữ liệu Recipe cần sửa ERD (Tùng): `recipe.dish_id` cho phép null, thêm `status`, `proposed_dish_name`, `rejection_reason`

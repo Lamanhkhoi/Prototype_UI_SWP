@@ -9,6 +9,7 @@ import PostCard from './components/PostCard';
 import { ActivityCard, RailFooter, ShopsCard, TrendingCard } from './components/Rail';
 import { CATEGORIES, CURRENT_USER, MEAL_TIMES, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../shared/mockData';
 import VersionSwitch from '../VersionSwitch';
+import RecipeCreatePage from './recipe/RecipeCreatePage';
 import s from './App.module.css';
 
 // Lọc nhanh: gọn 6 nút, vừa 1 hàng (không cuộn ngang)
@@ -29,13 +30,25 @@ const ACTIVITY = [
   { id: 5, who: 'Nguyễn Anh Tuấn', what: 'lưu thực đơn', target: 'Tuần giữ cân', when: '2 giờ trước' },
 ];
 
-// Thanh bên theo wireframe Figma: 4 mục (Hỏi Mầm vẫn ở nút nổi góc phải dưới)
+// Thanh bên: đúng 4 mục thật của client (PostFeedPage.jsx). Hỏi Mầm vẫn ở nút nổi góc phải dưới.
 const SIDE_NAV = [
-  { key: 'feed', label: 'Bảng tin', icon: 'house', iconActive: 'house-fill', href: '#' },
-  { key: 'recipes', label: 'Công thức', icon: 'journal-richtext', href: '#' },
-  { key: 'meal-plan', label: 'Thực đơn AI', icon: 'calendar-week', iconActive: 'calendar-week-fill', href: '#' },
+  { key: 'feed', label: 'Bảng tin', icon: 'house', iconActive: 'house-fill', href: '#/' },
+  { key: 'dishes', label: 'Món chay', icon: 'egg-fried', href: '#' },
+  { key: 'meal-plan', label: 'Thực đơn', icon: 'calendar-week', iconActive: 'calendar-week-fill', href: '#' },
   { key: 'shops', label: 'Quán chay', icon: 'shop', href: '#' },
 ];
+
+// Trang con theo hash (prototype chưa có router): '' = Bảng tin · '#/tao-cong-thuc' = Tạo công thức
+const RECIPE_ROUTE = '#/tao-cong-thuc';
+const useHashRoute = () => {
+  const [hash, setHash] = useState(() => window.location.hash);
+  useEffect(() => {
+    const on = () => { setHash(window.location.hash); window.scrollTo(0, 0); };
+    window.addEventListener('hashchange', on);
+    return () => window.removeEventListener('hashchange', on);
+  }, []);
+  return hash;
+};
 
 /** Thanh bên thu gọn: nhớ lựa chọn; lần đầu thì màn < 1200px tự thu gọn cho rộng chỗ */
 const COLLAPSE_KEY = 'anchay-v2-sidebar-collapsed';
@@ -62,6 +75,8 @@ const useIsMobile = () => {
 export default function App() {
   const toast = useToast();
   const isMobile = useIsMobile();
+  const route = useHashRoute();
+  const onRecipePage = route === RECIPE_ROUTE;
   const [posts, setPosts] = useState(POSTS);
   const [category, setCategory] = useState('all');
   const [searchText, setSearchText] = useState('');
@@ -86,6 +101,7 @@ export default function App() {
 
   // Lối tắt luôn hiện trong hộp tài khoản (thu gọn thì nằm trong popup avatar)
   const accountLinks = [
+    { icon: 'journal-plus', label: 'Tạo công thức', onClick: () => { window.location.hash = RECIPE_ROUTE; setDrawerOpen(false); } },
     { icon: 'person', label: 'Hồ sơ cá nhân', onClick: () => later('Hồ sơ cá nhân') },
     { icon: 'journal-text', label: 'Bài của tôi', onClick: () => later('Bài của tôi') },
   ];
@@ -99,7 +115,7 @@ export default function App() {
       <Sidebar
         nav={SIDE_NAV}
         accountLinks={accountLinks}
-        activeKey="feed"
+        activeKey={onRecipePage ? undefined : 'feed'}
         user={CURRENT_USER}
         accountMenu={accountMenu}
         collapsed={!isMobile && collapsed}
@@ -113,12 +129,15 @@ export default function App() {
         <Topbar
           value={searchText}
           onChange={setSearchText}
-          onSearch={setQuery}
+          onSearch={(q) => { setQuery(q); if (onRecipePage) window.location.hash = '#/'; }}
           notificationCount={3}
           onOpenMenu={() => setDrawerOpen(true)}
         />
 
-        {/* 3 cột: lời chào + Mầm gợi ý | bảng tin (giữa) | hoạt động, quán, chủ đề */}
+        {onRecipePage ? (
+          <main><RecipeCreatePage user={CURRENT_USER} /></main>
+        ) : (
+        /* 3 cột: lời chào + Mầm gợi ý | bảng tin (giữa) | hoạt động, quán, chủ đề */
         <main className={s.layout}>
           <aside className={s.left} aria-label="Lời chào và gợi ý của Mầm">
             <Hero user={CURRENT_USER} stats={STATS} plan={TODAY_PLAN} onOpenPlan={() => later('Thực đơn tuần')} />
@@ -182,6 +201,7 @@ export default function App() {
             <RailFooter />
           </aside>
         </main>
+        )}
       </div>
 
       <AskMam onOpenFull={(e) => { e.preventDefault(); later('Trang trò chuyện với Mầm'); }} />
@@ -190,8 +210,8 @@ export default function App() {
       {/* Điện thoại: thanh điều hướng dưới đáy */}
       <nav className={s.mobileNav} aria-label="Điều hướng nhanh">
         {NAV.slice(0, 2).map((n, i) => (
-          <a key={n.key} href="#" className={`${s.mItem} ${i === 0 ? s.mOn : ''}`}>
-            <i className={`bi bi-${i === 0 ? n.iconActive : n.icon}`} aria-hidden="true" /><span>{n.label}</span>
+          <a key={n.key} href={i === 0 ? '#/' : '#'} className={`${s.mItem} ${i === 0 && !onRecipePage ? s.mOn : ''}`}>
+            <i className={`bi bi-${i === 0 && !onRecipePage ? n.iconActive : n.icon}`} aria-hidden="true" /><span>{n.label}</span>
           </a>
         ))}
         <button type="button" className={s.mCreate} onClick={() => later('Hộp đăng bài')} aria-label="Đăng bài">

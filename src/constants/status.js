@@ -36,6 +36,13 @@ export const STATUS = {
     hidden:   { label: 'Đã ẩn',      tone: 'neutral', icon: 'eye-slash' },
   },
 
+  /** recipe.status — ĐỀ XUẤT (GAP-01), ERD v4.1 chưa có cột này. Dùng ở trang Tạo công thức (prototype). */
+  recipe: {
+    pending:  { label: 'Chờ duyệt',  tone: 'warn', icon: 'hourglass-split' },
+    approved: { label: 'Đã duyệt',   tone: 'ok',   icon: 'check-circle' },
+    rejected: { label: 'Bị từ chối', tone: 'bad',  icon: 'x-circle' },
+  },
+
   /** shop.verification_status — Report v4.0 mục F.
    *  LƯU Ý: file ERD trong Project dùng shop.status active/inactive/renovating (bản cũ). */
   shop: {
