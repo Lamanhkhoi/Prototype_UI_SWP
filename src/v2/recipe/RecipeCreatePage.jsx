@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import Avatar from '../../components/Avatar/Avatar';
 import Button from '../../components/Button/Button';
+import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import EmptyState from '../../components/EmptyState/EmptyState';
 import HighlightChip from '../../components/HighlightChip/HighlightChip';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
@@ -51,6 +52,21 @@ const emptyForm = () => ({
   steps: [''],
 });
 
+/** Công thức bị từ chối → nội dung form để "Sửa và gửi lại" (điền sẵn mọi thứ đã gửi). */
+const formFromRecipe = (r) => {
+  const dish = r.dish_id ? DISHES.find((d) => d.dish_id === r.dish_id) : null;
+  return {
+    dish: dish ? { type: 'existing', dish } : (r.proposed_dish_name ? { type: 'proposed', name: r.proposed_dish_name } : null),
+    title: r.title ?? '',
+    thumbnail: r.thumbnail_url ?? '',
+    servings: r.servings ?? null,
+    prep: r.prep_time_minutes ?? '',
+    cook: r.cook_time_minutes ?? '',
+    ingredients: (r.ingredients?.length ? r.ingredients : [{}]).map((x) => newIngredientRow(x)),
+    steps: r.steps?.length ? [...r.steps] : [''],
+  };
+};
+
 /** Khối form: tiêu đề + 1 dòng gợi ý (đúng box model: tiêu đề → gợi ý 4, → nội dung 16) */
 function Section({ id, title, hint, required, onLeave, children }) {
   return (
@@ -75,6 +91,12 @@ export default function RecipeCreatePage({ user }) {
   const [form, setForm] = useState(emptyForm);
   const [touched, setTouched] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  // Chế độ "Sửa và gửi lại": công thức đang sửa + bản gốc (để biết đã đổi gì chưa)
+  const [editing, setEditing] = useState(null);
+  const [snapshot, setSnapshot] = useState('');
+  const [draft, setDraft] = useState(null); // form Tạo công thức đang gõ dở, trả lại khi thoát chế độ sửa
+  const [confirmLeave, setConfirmLeave] = useState(false);
+  const dirty = !!editing && JSON.stringify(form) !== snapshot;
 
   const set = (key) => (v) => setForm((f) => ({ ...f, [key]: v }));
   // Chỉ báo lỗi khi người dùng đã rời khỏi khối đó (không đỏ ngay lúc đang gõ)
@@ -94,6 +116,7 @@ export default function RecipeCreatePage({ user }) {
     stepCount < 1 && 'cách làm',
   ].filter(Boolean);
   const ready = missing.length === 0;
+  const canSend = ready && (!editing || dirty);
 
   // Thanh tiến trình: 4 mục bắt buộc, bấm mục chưa xong → cuộn tới đúng khối
   const progress = [
@@ -113,14 +136,35 @@ export default function RecipeCreatePage({ user }) {
   const totalTime = (toMinutes(form.prep) ?? 0) + (toMinutes(form.cook) ?? 0);
   const filledIngredients = cleanIngredients(form.ingredients).length;
 
+  const startEdit = (r) => {
+    const f = formFromRecipe(r);
+    if (!editing) setDraft(form);
+    setForm(f);
+    setSnapshot(JSON.stringify(f));
+    setEditing(r);
+    setTouched({});
+    window.scrollTo({ top: 0 });
+  };
+
+  const exitEdit = () => {
+    setEditing(null);
+    setForm(draft ?? emptyForm());
+    setDraft(null);
+    setTouched({});
+    setConfirmLeave(false);
+    setTab('sent');
+    window.scrollTo({ top: 0 });
+  };
+  // Đã sửa mà bấm Hủy → hỏi trước, tránh mất công sửa
+  const cancelEdit = () => (dirty ? setConfirmLeave(true) : exitEdit());
+
   const submit = () => {
-    if (!ready || submitting) return;
+    if (!canSend || submitting) return;
     setSubmitting(true);
-    // Prototype: giả lập gọi API POST /recipes
+    // Prototype: giả lập POST /api/recipes (tạo mới) hoặc PUT /api/recipes/:id (gửi lại bản bị từ chối)
     setTimeout(() => {
       const proposed = form.dish.type === 'proposed';
-      const created = {
-        recipe_id: Date.now(),
+      const fields = {
         title: form.title.trim(),
         dish_id: proposed ? null : form.dish.dish.dish_id,
         dish_name: proposed ? null : form.dish.dish.name,
@@ -130,18 +174,27 @@ export default function RecipeCreatePage({ user }) {
         prep_time_minutes: toMinutes(form.prep),
         cook_time_minutes: toMinutes(form.cook),
         ingredient_count: filledIngredients,
-        instructions: form.steps.filter((x) => x.trim()).join('\n'),
+        ingredients: cleanIngredients(form.ingredients),
+        steps: form.steps.map((x) => x.trim()).filter(Boolean),
         status: 'pending',
         rejection_reason: null,
-        created_at: new Date().toISOString(),
       };
-      setRecipes((list) => [created, ...list]);
-      setForm(emptyForm());
+      const now = new Date().toISOString();
+      if (editing) {
+        // Gửi lại = cập nhật CÙNG recipe_id, quay về Chờ duyệt, xoá lý do cũ
+        setRecipes((list) => list.map((r) => (r.recipe_id === editing.recipe_id ? { ...r, ...fields, updated_at: now } : r)));
+        setEditing(null);
+        setForm(draft ?? emptyForm());
+        setDraft(null);
+      } else {
+        setRecipes((list) => [{ recipe_id: Date.now(), ...fields, created_at: now }, ...list]);
+        setForm(emptyForm());
+      }
       setTouched({});
       setSubmitting(false);
       setTab('sent');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      toast('Đã gửi công thức. Admin sẽ duyệt trước khi công khai.', { tone: 'success' });
+      toast(editing ? 'Đã gửi lại. Công thức đang chờ duyệt.' : 'Đã gửi công thức. Admin sẽ duyệt trước khi công khai.', { tone: 'success' });
     }, 900);
   };
 
@@ -149,25 +202,37 @@ export default function RecipeCreatePage({ user }) {
 
   return (
     <div className={s.page}>
-      <PageHeader
-        breadcrumb={[{ label: 'Tài khoản' }, { label: 'Tạo công thức' }]}
-        title="Tạo công thức"
-        description="Chia sẻ cách làm của bạn. Admin sẽ duyệt trước khi công khai. Mục có dấu * là bắt buộc."
-      />
+      {editing ? (
+        <PageHeader
+          breadcrumb={[{ label: 'Tài khoản' }, { label: 'Công thức đã gửi' }, { label: 'Sửa' }]}
+          title="Sửa công thức"
+          description="Sửa theo góp ý rồi gửi lại. Bản gửi lại thay cho bản cũ và quay về trạng thái Chờ duyệt."
+        />
+      ) : (
+        <>
+          <PageHeader
+            breadcrumb={[{ label: 'Tài khoản' }, { label: 'Tạo công thức' }]}
+            title="Tạo công thức"
+            description="Chia sẻ cách làm của bạn. Admin sẽ duyệt trước khi công khai. Mục có dấu * là bắt buộc."
+          />
+          <Tabs
+            label="Tạo công thức"
+            value={tab}
+            onChange={setTab}
+            items={[
+              { key: 'create', label: 'Tạo công thức', icon: 'pencil-square' },
+              { key: 'sent', label: 'Công thức đã gửi', icon: 'send', count: recipes.length },
+            ]}
+          />
+        </>
+      )}
 
-      <Tabs
-        label="Tạo công thức"
-        value={tab}
-        onChange={setTab}
-        items={[
-          { key: 'create', label: 'Tạo công thức', icon: 'pencil-square' },
-          { key: 'sent', label: 'Công thức đã gửi', icon: 'send', count: recipes.length },
-        ]}
-      />
-
-      {tab === 'create' ? (
-        <div className={s.grid} role="tabpanel" aria-label="Tạo công thức">
+      {editing || tab === 'create' ? (
+        <div className={s.grid} role={editing ? undefined : 'tabpanel'} aria-label={editing ? 'Sửa công thức' : 'Tạo công thức'}>
           <div className={s.form}>
+            {editing?.rejection_reason && (
+              <Notice tone="alert" title="Admin từ chối lần trước vì">{editing.rejection_reason}</Notice>
+            )}
             <Section
               id="rc-dish"
               title="Công thức này nấu món gì?"
@@ -252,13 +317,18 @@ export default function RecipeCreatePage({ user }) {
                   </li>
                 ))}
               </ul>
-              <Button block icon="send" loading={submitting} disabled={!ready} onClick={submit}>
-                Gửi công thức
+              <Button block icon="send" loading={submitting} disabled={!canSend} onClick={submit}>
+                {editing ? 'Gửi lại công thức' : 'Gửi công thức'}
               </Button>
-              <p className={ready ? s.ok : s.hint} aria-live="polite">
-                {ready
-                  ? 'Sẵn sàng. Sau khi gửi, công thức chờ Admin duyệt rồi mới công khai.'
-                  : (ingWithAmount >= 1 && ing.hasError ? 'Có dòng nguyên liệu bị lỗi, sửa rồi gửi nhé.' : 'Bấm vào mục chưa xong để tới đúng chỗ.')}
+              {editing && (
+                <Button block variant="subtle" disabled={submitting} onClick={cancelEdit}>Hủy, quay lại danh sách</Button>
+              )}
+              <p className={canSend ? s.ok : s.hint} aria-live="polite">
+                {!ready
+                  ? (ingWithAmount >= 1 && ing.hasError ? 'Có dòng nguyên liệu bị lỗi, sửa rồi gửi nhé.' : 'Bấm vào mục chưa xong để tới đúng chỗ.')
+                  : editing && !dirty
+                    ? 'Bạn chưa thay đổi gì. Sửa theo lý do từ chối rồi gửi lại.'
+                    : 'Sẵn sàng. Sau khi gửi, công thức chờ Admin duyệt rồi mới công khai.'}
               </p>
             </section>
             <section className={s.card} aria-labelledby="recipe-preview-title">
@@ -319,10 +389,18 @@ export default function RecipeCreatePage({ user }) {
                     </p>
                     <p className={s.sentMeta}>
                       <i className="bi bi-clock" aria-hidden="true" />
-                      <span>Đã gửi: {timeAgo(r.created_at)}{r.ingredient_count ? ` · ${r.ingredient_count} nguyên liệu` : ''}</span>
+                      <span>
+                        {r.updated_at ? `Gửi lại: ${timeAgo(r.updated_at)}` : `Đã gửi: ${timeAgo(r.created_at)}`}
+                        {r.ingredient_count ? ` · ${r.ingredient_count} nguyên liệu` : ''}
+                      </span>
                     </p>
-                    {r.status === 'rejected' && r.rejection_reason && (
-                      <Notice tone="alert" title="Lý do từ chối" className={s.reason}>{r.rejection_reason}</Notice>
+                    {r.status === 'rejected' && (
+                      <>
+                        {r.rejection_reason && <Notice tone="alert" title="Lý do từ chối" className={s.reason}>{r.rejection_reason}</Notice>}
+                        <div className={s.sentActs}>
+                          <Button icon="pencil" onClick={() => startEdit(r)}>Sửa và gửi lại</Button>
+                        </div>
+                      </>
                     )}
                   </div>
                 </li>
@@ -331,6 +409,16 @@ export default function RecipeCreatePage({ user }) {
           )}
         </div>
       )}
+
+      <ConfirmDialog
+        open={confirmLeave}
+        title="Bỏ các thay đổi?"
+        message="Những gì bạn vừa sửa sẽ mất. Công thức vẫn giữ trạng thái Bị từ chối."
+        confirmLabel="Bỏ thay đổi"
+        cancelLabel="Sửa tiếp"
+        onConfirm={exitEdit}
+        onCancel={() => setConfirmLeave(false)}
+      />
     </div>
   );
 }

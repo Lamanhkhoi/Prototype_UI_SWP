@@ -135,6 +135,7 @@
 .sentDish i { color: var(--v-muted); }
 .sentMeta { display: flex; align-items: center; gap: 4px; margin: 0; color: var(--v-muted); font-size: 12px; }
 .reason { margin-top: 8px; }
+.sentActs { display: flex; gap: 8px; margin-top: 12px; }
 
 /* Responsive tạm (DECISIONS: responsive chưa chốt): < 1100px cột phụ xuống dưới form, hết cố định */
 @media (max-width: 1099.98px) {

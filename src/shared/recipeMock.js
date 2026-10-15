@@ -7,6 +7,7 @@
 //    recipe.proposed_dish_name  tên món User đề xuất, khi dish_id = null
 //    recipe.rejection_reason    lý do Admin từ chối
 //    recipe.dish_id             hiện NOT NULL → cần cho phép null
+//    recipe.updated_at          lúc gửi lại (Sửa và gửi lại: cùng recipe_id, status về 'pending')
 // =====================================================================
 
 /** dish: chỉ status 'active' mới hiện trong ô chọn món. 'pending' có trong DB nhưng User không thấy. */
@@ -91,6 +92,12 @@ export const MY_RECIPES = [
     prep_time_minutes: null,
     cook_time_minutes: null,
     ingredient_count: 2,
+    // Nội dung đầy đủ để mở lại form "Sửa và gửi lại" (API thật: GET /api/recipes/:id)
+    ingredients: [
+      { name: 'Nấm rơm', amount: 300, unit: 'g' },
+      { name: 'Nước tương', amount: 3, unit: 'muỗng canh' },
+    ],
+    steps: ['Cho nấm vào nồi, thêm nước tương.', 'Kho cho thấm.'],
     status: 'rejected',
     rejection_reason: 'Các bước nấu quá ngắn, chưa ghi thời gian kho và lượng nước. Bạn bổ sung rồi gửi lại nhé.',
     created_at: '2026-09-28T20:30:00+07:00',
