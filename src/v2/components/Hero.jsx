@@ -1,5 +1,5 @@
 import BlurText from '../reactbits/BlurText';
-import RotatingText from '../reactbits/RotatingText';
+import TodayDish from './TodayDish';
 import CountUp from '../reactbits/CountUp';
 import Avatar from '../../components/Avatar/Avatar';
 import AiPlanCard from './AiPlanCard';
@@ -15,7 +15,7 @@ const greet = () => {
 
 /**
  * Cột trái của Bảng tin:
- *  - Lời chào BlurText + câu hỏi có từ xoay (RotatingText)
+ *  - Lời chào BlurText + thẻ "Hôm nay ăn gì?" (TodayDish, tự đổi món từ bảng dish)
  *  - Số liệu cộng đồng đếm lên (CountUp)
  *  - Thẻ Mầm gợi ý hôm nay
  */
@@ -26,19 +26,11 @@ export default function Hero({ user, stats, plan, onOpenPlan }) {
       <h1 className="visually-hidden">{greet()}, {firstName}. Bảng tin Ăn Chay</h1>
       <div className={s.title} aria-hidden="true">
         <BlurText text={`${greet()}, ${firstName}.`} delay={90} animateBy="words" direction="top" className={s.blur} />
-        <span className={s.line2}>
-          <span>Hôm nay ăn</span>
-          <RotatingText
-            texts={['bún Huế chay', 'gỏi cuốn', 'cơm gạo lứt', 'canh nấm']}
-            mainClassName={s.rotate}
-            splitLevelClassName={s.rotateSplit}
-            staggerFrom="last"
-            staggerDuration={0.02}
-            rotationInterval={3000}
-          />
-          <span>?</span>
-        </span>
       </div>
+
+      {/* 16/10/2026: thay dòng "Hôm nay ăn [từ xoay]?" bằng thẻ Organic, món lấy từ bảng dish */}
+      {/* Đang so 3 bố cục: thêm ?td=a | ?td=b | ?td=c vào địa chỉ (mặc định a) */}
+      <TodayDish variant={new URLSearchParams(window.location.search).get('td') ?? 'a'} />
 
       <p className={s.lead}>Công thức, mẹo bếp và quán chay ngon quanh bạn.</p>
 

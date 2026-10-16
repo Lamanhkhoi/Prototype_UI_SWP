@@ -10,6 +10,8 @@
 //    recipe.updated_at          lúc gửi lại (Sửa và gửi lại: cùng recipe_id, status về 'pending')
 // =====================================================================
 
+const photo = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=320&q=70`;
+
 /** dish: chỉ status 'active' mới hiện trong ô chọn món. 'pending' có trong DB nhưng User không thấy. */
 export const DISHES = [
   { dish_id: 1, name: 'Đậu hũ sốt cà chua', status: 'active' },
@@ -24,9 +26,27 @@ export const DISHES = [
   { dish_id: 10, name: 'Nấm kho tiêu', status: 'active' },
   { dish_id: 11, name: 'Mì xào rau củ', status: 'active' },
   { dish_id: 12, name: 'Chè đậu xanh', status: 'active' },
-  { dish_id: 13, name: 'Buddha bowl đậu hũ', status: 'active' },
+  { dish_id: 13, name: 'Buddha bowl đậu hũ', status: 'active', image_url: photo('1540189549336-e6e99c3679fe') },
   { dish_id: 14, name: 'Bánh xèo chay', status: 'pending' },
+  // Dữ liệu thử độ co giãn của thẻ "Hôm nay ăn gì?": tên rất ngắn, rất dài, có ảnh / không ảnh
+  { dish_id: 15, name: 'Bún', status: 'active' },
+  { dish_id: 16, name: 'Xôi', status: 'active' },
+  { dish_id: 17, name: 'Chè', status: 'active', image_url: photo('1546069901-ba9599a7e63c') },
+  { dish_id: 18, name: 'Bún đậu mắm tôm chay kiểu Hà Nội', status: 'active' },
+  { dish_id: 19, name: 'Lẩu nấm thập cẩm chay ăn kèm rau rừng và bún tươi', status: 'active' },
+  { dish_id: 20, name: 'Cơm gạo lứt trộn rau củ nướng sốt mè rang với đậu hũ non chiên giòn và rong biển', status: 'active' },
+  { dish_id: 21, name: 'Salad', status: 'active', image_url: photo('1512621776951-a57141f2eefd') },
+  { dish_id: 22, name: 'Phở cuốn chay', status: 'active' },
+  { dish_id: 23, name: 'Bánh mì chay xíu mại nấm sốt cà chua', status: 'pending' }, // pending → không được hiện
 ];
+
+/**
+ * Giả lập API công khai GET /recipes/dishes của client (recipeService.getActiveDishes):
+ * trả { items } chỉ gồm món đang active. Sang dự án thật chỉ cần thay hàm này.
+ */
+export const fetchActiveDishes = () => new Promise((resolve) => {
+  setTimeout(() => resolve({ items: DISHES.filter((d) => d.status === 'active') }), 400);
+});
 
 /** Gợi ý tên nguyên liệu (ingredient.name) cho IngredientEditor. */
 export const INGREDIENT_NAMES = [

@@ -9,25 +9,6 @@
 }
 .blur { display: flex; flex-wrap: wrap; margin: 0; }
 .blur > span { display: inline-block; will-change: transform, filter, opacity; }
-.line2 {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.22em;
-  margin-top: 8px;
-  color: var(--v-text-2);
-  font-size: 0.66em;
-}
-.rotate {
-  display: inline-flex;
-  overflow: hidden;
-  padding: 0.16em 0.32em 0.14em;
-  border-radius: 0.32em;
-  background: var(--v-accent);
-  color: var(--v-on-accent);
-}
-.rotateSplit { overflow: hidden; padding-bottom: 0.08em; }
-
 .lead { margin: 0; color: var(--v-muted); font-size: 0.92rem; line-height: 1.6; }
 
 .stats {
