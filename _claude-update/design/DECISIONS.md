@@ -24,6 +24,10 @@
 - 15/10/2026 · Công thức Bị từ chối có nút "Sửa và gửi lại" ngay trên thẻ → mở lại form bố cục B điền sẵn, lý do từ chối ở đầu form, nút "Gửi lại công thức" (khóa khi chưa sửa gì); gửi lại = cập nhật CÙNG `recipe_id`, `status` về `pending`, xóa lý do cũ · Không sinh bản trùng trong danh sách · Khôi
 - 15/10/2026 · Bỏ tính năng Rút lại / Xóa công thức đã gửi · Chưa cần, chưa có trạng thái nháp · Khôi
 - 15/10/2026 · Trang xem công thức đã duyệt (khối "Công thức cho món này" trong chi tiết món, trang chi tiết công thức 2A/2B) chưa làm UI; bảng box model để sẵn trên canvas "Công thức – phần User còn thiếu" · Khôi
+- 16/10/2026 · Khối "Hôm nay ăn gì?" ở cột trái Bảng tin: phong cách Organic, bố cục A (câu hỏi 24px màu rêu làm tiêu đề cạnh đĩa món 88px, tên món bên dưới cả bề ngang thẻ); thẻ bo 24, 1 trang trí là nhành lá · Khôi chọn A trong 3 bố cục A/B/C; giữ font Be Vietnam Pro + 6 màu, không dùng Nunito · Khôi
+- 16/10/2026 · Món gợi ý lấy từ bảng dish (chỉ `active`), không có danh sách viết cứng; tự đổi 4 giây/lần, rê chuột thì dừng, không có nút "Gợi ý món khác"; lỗi hoặc chưa có món → ẩn thẻ · Khôi
+- 16/10/2026 · Hình món trong thẻ luôn là hình bát minh hoạ, không dùng `dish.image_url` · Ảnh thật lúc có lúc không làm thẻ không đồng nhất · Khôi
+- 16/10/2026 · Tên món co theo độ dài: ≤ 10 ký tự 32px · ≤ 18: 24px · ≤ 40: 20px · dài hơn 16px (tối đa 3 dòng); khung tên cao cố định 64px nên đổi món thẻ không cao thấp · Thử với tên 3 → 80 ký tự · Khôi
 
 ## Đang mở
 

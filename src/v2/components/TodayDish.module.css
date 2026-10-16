@@ -1,25 +1,27 @@
-/* Thẻ "Hôm nay ăn gì?" — Organic: bo tròn lớn, bóng ấm, đĩa món trong vòng tròn vàng mơ, 1 nhành lá vẽ tay.
-   Chỉ dùng biến màu, lưới 8pt, thang chữ 12/14/16/20/24/32. Một trang trí duy nhất: nhành lá (ANTI-SLOP §1).
-   3 bố cục đang so sánh (16/10/2026):
-     A · Câu hỏi làm tiêu đề: "Hôm nay ăn gì?" 24px cạnh đĩa, tên món ở dưới
-     B · Gọn 1 hàng: đĩa bên trái, câu hỏi + tên món bên phải, thẻ thấp nhất
-     C · Đĩa làm trung tâm: đĩa to ở giữa, câu hỏi và tên món căn giữa bên dưới */
+/* Thẻ "Hôm nay ăn gì?" — Organic, bố cục A (chốt 16/10/2026):
+   câu hỏi 24px làm tiêu đề cạnh đĩa món, tên món bên dưới chiếm cả bề ngang thẻ.
+   Chỉ dùng biến màu, lưới 8pt, thang chữ 12/14/16/20/24/32. Một trang trí duy nhất: nhành lá (ANTI-SLOP §1). */
 .card {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 16px;
+  grid-template-areas: 'ask plate' 'name name';
+  gap: 16px;
   min-width: 0;
   padding: 16px 16px 20px;
   overflow: hidden;
   border-radius: 24px;
   background: var(--v-surface);
   box-shadow: 0 1px 2px rgba(122, 82, 48, 0.06), 0 16px 32px -20px rgba(122, 82, 48, 0.28);
+  container: todaydish / inline-size;
 }
 :global([data-theme='dark']) .card { box-shadow: var(--v-shadow); }
 
+/* Nhành lá ló ra sau đĩa ở góc phải trên, không đè lên chữ */
 .leaf {
   position: absolute;
+  top: -28px;
+  right: -28px;
   width: 96px;
   height: 96px;
   stroke: var(--v-accent);
@@ -29,9 +31,20 @@
   pointer-events: none;
 }
 
-.ask { position: relative; grid-area: ask; margin: 0; }
+.ask {
+  position: relative;
+  grid-area: ask;
+  align-self: center;
+  margin: 0;
+  color: var(--v-accent-text);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
 
-/* Đĩa món: vòng tròn vàng mơ + hình bát */
+/* Đĩa món: vòng tròn vàng mơ + hình bát (luôn là hình minh hoạ, không dùng ảnh thật) */
 .plate {
   position: relative;
   display: grid;
@@ -52,13 +65,13 @@
 .tone2 .sauce { fill: #E9B949; }
 .tone3 .sauce { fill: #E07B45; }
 
-/* Tên món: khung cao cố định → đổi món thẻ không cao thấp.
+/* Tên món: khung cao cố định 64px → đổi món thẻ không cao thấp.
    Rất ngắn ≤ 10 ký tự: 32px · ≤ 18: 24px · ≤ 40: 20px · dài hơn: 16px, tối đa 3 dòng rồi "…" */
 .name {
   position: relative;
   display: flex;
   grid-area: name;
-  align-items: flex-end;
+  align-items: flex-start;
   min-width: 0;
   height: 64px;
   margin: 0;
@@ -80,56 +93,22 @@
 }
 .xl .swap, .lg .swap, .md .swap { -webkit-line-clamp: 2; }
 
-/* ---------- A · Câu hỏi làm tiêu đề ---------- */
-.vA { grid-template-areas: 'ask plate' 'name name'; row-gap: 16px; }
-.vA .ask {
-  align-self: center;
-  color: var(--v-accent-text);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
+/* Cột trái hẹp (vd 200px khi màn 800–1175px): đĩa nhỏ lại, chữ giảm 1 bậc */
+@container todaydish (max-width: 239.98px) {
+  .ask { font-size: 20px; }
+  .plate { width: 64px; height: 64px; }
+  .xl { font-size: 24px; }
+  .lg { font-size: 20px; line-height: 1.25; }
+  .md { font-size: 16px; line-height: 1.3; }
+  .sm { font-size: 14px; line-height: 1.4; }
 }
-.vA .name { align-items: flex-start; }
-.vA .leaf { right: -24px; bottom: -32px; transform: rotate(90deg); }
-
-/* ---------- B · Gọn 1 hàng ---------- */
-.vB {
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas: 'plate ask' 'plate name';
-  grid-template-rows: auto 1fr;
-  row-gap: 4px;
-  padding: 16px;
-}
-.vB .plate { align-self: center; width: 80px; height: 80px; }
-.vB .ask { color: var(--v-accent-text); font-size: 14px; font-weight: 700; line-height: 20px; }
-.vB .name { align-items: flex-start; height: 60px; }
-.vB .xl { font-size: 24px; }
-.vB .lg { font-size: 20px; line-height: 1.25; }
-.vB .md { font-size: 16px; line-height: 1.3; }
-.vB .sm { font-size: 14px; line-height: 1.4; }
-.vB .leaf { top: -40px; right: -32px; transform: rotate(-20deg); }
-
-/* ---------- C · Đĩa làm trung tâm ---------- */
-.vC {
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: 'plate' 'ask' 'name';
-  justify-items: center;
-  padding: 20px 16px;
-  text-align: center;
-}
-.vC .plate { width: 120px; height: 120px; margin-bottom: 12px; }
-.vC .ask { color: var(--v-accent-text); font-size: 16px; font-weight: 700; line-height: 24px; }
-.vC .name { justify-content: center; align-items: flex-start; height: 64px; margin-top: 4px; }
-.vC .leaf { top: 4px; left: calc(50% + 24px); }
 
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes spin-in { from { opacity: 0.4; transform: rotate(-24deg) scale(0.92); } to { opacity: 1; transform: none; } }
 
 /* Đang tải */
 .sk { background: var(--v-surface-2); }
-.skLines { flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 8px; }
+.skLines { flex-direction: column; justify-content: flex-start; align-items: stretch; gap: 8px; }
 .skLines .sk { height: 16px; border-radius: 8px; }
 .skLines .sk:last-child { width: 60%; }
 

@@ -8,8 +8,8 @@ import s from './TodayDish.module.css';
 //  - Tự đổi món theo chu kỳ, không có nút. Rê chuột vào thẻ → dừng để đọc.
 //  - Người dùng tắt hiệu ứng trong hệ điều hành → đứng yên ở món đầu.
 //  - Đang tải → khung xám; lỗi hoặc chưa có món → ẩn cả thẻ.
+//  - Bố cục A (chốt 16/10): câu hỏi 24px làm tiêu đề cạnh đĩa, tên món bên dưới cả bề ngang thẻ.
 //  Props: load = () => Promise<{items}> (dự án thật: recipeService.getActiveDishes) · interval (ms, mặc định 4000)
-//         variant = 'a' | 'b' | 'c' (3 bố cục đang so sánh; prototype đổi bằng ?td=a|b|c trên địa chỉ)
 
 const reduceMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const shuffle = (list) => {
@@ -47,7 +47,7 @@ function Bowl({ tone }) {
   );
 }
 
-export default function TodayDish({ load = fetchActiveDishes, interval = 4000, variant = 'a' }) {
+export default function TodayDish({ load = fetchActiveDishes, interval = 4000 }) {
   const [dishes, setDishes] = useState(null); // null = đang tải
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -75,11 +75,10 @@ export default function TodayDish({ load = fetchActiveDishes, interval = 4000, v
 
   if (dishes && dishes.length === 0) return null;
   const dish = dishes?.[i];
-  const v = { a: s.vA, b: s.vB, c: s.vC }[variant] ?? s.vA;
 
   return (
     <section
-      className={`${s.card} ${v}`}
+      className={s.card}
       aria-label="Hôm nay ăn gì?"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

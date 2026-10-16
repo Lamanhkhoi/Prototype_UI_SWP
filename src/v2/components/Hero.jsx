@@ -29,8 +29,7 @@ export default function Hero({ user, stats, plan, onOpenPlan }) {
       </div>
 
       {/* 16/10/2026: thay dòng "Hôm nay ăn [từ xoay]?" bằng thẻ Organic, món lấy từ bảng dish */}
-      {/* Đang so 3 bố cục: thêm ?td=a | ?td=b | ?td=c vào địa chỉ (mặc định a) */}
-      <TodayDish variant={new URLSearchParams(window.location.search).get('td') ?? 'a'} />
+      <TodayDish />
 
       <p className={s.lead}>Công thức, mẹo bếp và quán chay ngon quanh bạn.</p>
 
