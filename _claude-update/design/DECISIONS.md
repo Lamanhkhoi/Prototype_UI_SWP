@@ -28,6 +28,9 @@
 - 16/10/2026 · Món gợi ý lấy từ bảng dish (chỉ `active`), không có danh sách viết cứng; tự đổi 4 giây/lần, rê chuột thì dừng, không có nút "Gợi ý món khác"; lỗi hoặc chưa có món → ẩn thẻ · Khôi
 - 16/10/2026 · Hình món trong thẻ luôn là hình bát minh hoạ, không dùng `dish.image_url` · Ảnh thật lúc có lúc không làm thẻ không đồng nhất · Khôi
 - 16/10/2026 · Tên món co theo độ dài: ≤ 10 ký tự 32px · ≤ 18: 24px · ≤ 40: 20px · dài hơn 16px (tối đa 3 dòng); khung tên cao cố định 64px nên đổi món thẻ không cao thấp · Thử với tên 3 → 80 ký tự · Khôi
+- 18/10/2026 · Trang xem công thức đã duyệt (#/cong-thuc/:id) dùng bố cục 2B: đầu trang ảnh 448 + thông tin 496; bên dưới Cách làm 608 | Nguyên liệu 336 cố định khi cuộn (cùng khung với trang Tạo công thức); màn < 1100px Nguyên liệu lên trước Cách làm · Đang nấu ở bước nào cũng thấy số lượng · Khôi
+- 18/10/2026 · Cảnh báo dị ứng trên trang xem công thức: khung đỏ đầu thẻ Nguyên liệu + dòng trùng tô đỏ kèm chữ "Bạn dị ứng" (so khớp bỏ dấu với danh sách dị ứng trong hồ sơ); chỉ cảnh báo, không ẩn công thức · Khôi
+- 18/10/2026 · Công thức chưa có ảnh bìa → hình bát minh hoạ trên nền vàng mơ (cùng kiểu thẻ "Hôm nay ăn gì?") · Khôi
 
 ## Đang mở
 
@@ -40,3 +43,4 @@
 - Ô nhập của kit (Bootstrap `form-control`) chưa dùng `--v-field-line` như DESIGN.md §1.1 → viền ô vẫn mờ; nên sửa 1 lần cho cả kit
 - Dữ liệu Recipe cần sửa ERD (Tùng): `recipe.dish_id` cho phép null, thêm `status`, `proposed_dish_name`, `rejection_reason`
 - Gửi lại công thức cần API `PUT /api/recipes/:id` (chỉ tác giả, chỉ khi `rejected`) và cột `recipe.updated_at` → báo backend / Tùng
+- Trang xem công thức: chưa có nút Báo cáo (chờ nhóm chốt ai xử lý) và chưa có danh sách công thức theo món (chi tiết món chưa làm)

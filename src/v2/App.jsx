@@ -10,6 +10,7 @@ import { ActivityCard, RailFooter, ShopsCard, TrendingCard } from './components/
 import { CATEGORIES, CURRENT_USER, MEAL_TIMES, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../shared/mockData';
 import VersionSwitch from '../VersionSwitch';
 import RecipeCreatePage from './recipe/RecipeCreatePage';
+import RecipeDetailPage from './recipe/RecipeDetailPage';
 import s from './App.module.css';
 
 // Lọc nhanh: gọn 6 nút, vừa 1 hàng (không cuộn ngang)
@@ -38,7 +39,7 @@ const SIDE_NAV = [
   { key: 'shops', label: 'Quán chay', icon: 'shop', href: '#' },
 ];
 
-// Trang con theo hash (prototype chưa có router): '' = Bảng tin · '#/tao-cong-thuc' = Tạo công thức
+// Trang con theo hash (prototype chưa có router): '' = Bảng tin · '#/tao-cong-thuc' = Tạo công thức · '#/cong-thuc/:id' = Xem công thức
 const RECIPE_ROUTE = '#/tao-cong-thuc';
 const useHashRoute = () => {
   const [hash, setHash] = useState(() => window.location.hash);
@@ -77,6 +78,8 @@ export default function App() {
   const isMobile = useIsMobile();
   const route = useHashRoute();
   const onRecipePage = route === RECIPE_ROUTE;
+  const recipeViewId = /^#\/cong-thuc\/([^/?]+)/.exec(route)?.[1];
+  const onSubPage = onRecipePage || !!recipeViewId; // trang con: không tô sáng mục nào ở thanh bên
   const [posts, setPosts] = useState(POSTS);
   const [category, setCategory] = useState('all');
   const [searchText, setSearchText] = useState('');
@@ -115,7 +118,7 @@ export default function App() {
       <Sidebar
         nav={SIDE_NAV}
         accountLinks={accountLinks}
-        activeKey={onRecipePage ? undefined : 'feed'}
+        activeKey={onSubPage ? undefined : 'feed'}
         user={CURRENT_USER}
         accountMenu={accountMenu}
         collapsed={!isMobile && collapsed}
@@ -129,12 +132,14 @@ export default function App() {
         <Topbar
           value={searchText}
           onChange={setSearchText}
-          onSearch={(q) => { setQuery(q); if (onRecipePage) window.location.hash = '#/'; }}
+          onSearch={(q) => { setQuery(q); if (onSubPage) window.location.hash = '#/'; }}
           notificationCount={3}
           onOpenMenu={() => setDrawerOpen(true)}
         />
 
-        {onRecipePage ? (
+        {recipeViewId ? (
+          <main><RecipeDetailPage key={recipeViewId} recipeId={recipeViewId} /></main>
+        ) : onRecipePage ? (
           <main><RecipeCreatePage user={CURRENT_USER} /></main>
         ) : (
         /* 3 cột: lời chào + Mầm gợi ý | bảng tin (giữa) | hoạt động, quán, chủ đề */
@@ -210,8 +215,8 @@ export default function App() {
       {/* Điện thoại: thanh điều hướng dưới đáy */}
       <nav className={s.mobileNav} aria-label="Điều hướng nhanh">
         {NAV.slice(0, 2).map((n, i) => (
-          <a key={n.key} href={i === 0 ? '#/' : '#'} className={`${s.mItem} ${i === 0 && !onRecipePage ? s.mOn : ''}`}>
-            <i className={`bi bi-${i === 0 && !onRecipePage ? n.iconActive : n.icon}`} aria-hidden="true" /><span>{n.label}</span>
+          <a key={n.key} href={i === 0 ? '#/' : '#'} className={`${s.mItem} ${i === 0 && !onSubPage ? s.mOn : ''}`}>
+            <i className={`bi bi-${i === 0 && !onSubPage ? n.iconActive : n.icon}`} aria-hidden="true" /><span>{n.label}</span>
           </a>
         ))}
         <button type="button" className={s.mCreate} onClick={() => later('Hộp đăng bài')} aria-label="Đăng bài">

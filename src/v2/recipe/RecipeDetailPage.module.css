@@ -1,0 +1,150 @@
+/* =====================================================================
+   Trang xem công thức — bố cục 2B (chốt 18/10/2026)
+   Khung 976: đầu trang = ảnh 448 + gap 32 + thông tin 496 · cách hai cột 48
+   Hai cột = Cách làm 608 + gap 32 + Nguyên liệu 336 (sticky top 88) — giống trang Tạo công thức.
+   Khối padding 24, bo 20 · tiêu đề → gợi ý 4 · → nội dung 16 · khối ↔ khối 24. Chỉ dùng biến màu.
+   ===================================================================== */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(976px, 100% - 48px);
+  margin-inline: auto;
+  padding: 32px 0 96px;
+}
+
+.crumbs { display: flex; align-items: center; gap: 8px; color: var(--v-muted); font-size: 14px; }
+.crumbs a { color: var(--v-muted); text-decoration: none; }
+.crumbs a:hover { color: var(--v-text); text-decoration: underline; }
+.crumbs i { font-size: 12px; }
+.crumbs [aria-current] { color: var(--v-text); font-weight: 600; }
+
+/* ---------- Đầu trang ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 448px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 32px; /* + gap 16 của .page = 48 tới hai cột */
+}
+.cover { width: 448px; min-width: 0; }
+.photo { border-radius: var(--ac-radius-surface); }
+/* Chưa có ảnh bìa: hình bát minh hoạ trên nền vàng mơ (cùng kiểu thẻ "Hôm nay ăn gì?") */
+.noPhoto {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--ac-radius-surface);
+  background: color-mix(in srgb, var(--v-marigold) 18%, var(--v-surface));
+}
+.plate {
+  display: grid;
+  place-items: center;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--v-marigold) 34%, var(--v-surface));
+}
+
+.info { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.dish {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--v-accent-soft);
+  color: var(--v-accent-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.title {
+  margin: 8px 0 0;
+  color: var(--v-text);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.desc { margin: 8px 0 0; color: var(--v-text-2); font-size: 16px; line-height: 1.6; }
+.by { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; }
+.author { color: var(--v-text); font-weight: 600; }
+.when { color: var(--v-muted); }
+.when::before { content: '·'; margin-right: 8px; }
+.factsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: stretch;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--v-line);
+}
+
+/* ---------- Hai cột ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 608px) 336px;
+  grid-template-areas: 'main aside';
+  gap: 32px;
+  align-items: start;
+}
+.main { display: flex; flex-direction: column; gap: 24px; grid-area: main; min-width: 0; }
+.aside { position: sticky; top: 88px; grid-area: aside; }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--v-line);
+  border-radius: var(--ac-radius-surface);
+  background: var(--v-surface);
+  box-shadow: var(--v-shadow);
+}
+/* Danh sách dài hơn màn hình → cuộn trong thẻ, thẻ vẫn đứng yên */
+.ingCard { max-height: calc(100dvh - 112px); overflow-y: auto; overscroll-behavior: contain; }
+.head { display: flex; flex-direction: column; gap: 4px; }
+.h2 { margin: 0; color: var(--v-text); font-size: 20px; font-weight: 700; line-height: 1.25; }
+.hint { margin: 0; color: var(--v-muted); font-size: 14px; line-height: 1.6; }
+
+/* Dinh dưỡng: ô nhỏ, chấm màu theo nhóm chất (màu dinh dưỡng của theme) */
+.nutri { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.nutriItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--v-surface-2);
+  color: var(--v-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.nutriItem span { display: inline-flex; align-items: center; gap: 6px; }
+.nutriItem span::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--v-line-2); }
+.nutriItem[data-tone='protein'] span::before { background: var(--ac-protein); }
+.nutriItem[data-tone='carb'] span::before { background: var(--ac-carb); }
+.nutriItem[data-tone='fat'] span::before { background: var(--ac-fat); }
+.nutriItem[data-tone='fiber'] span::before { background: var(--ac-fiber); }
+.nutriItem b { color: var(--v-text); font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* Responsive tạm (responsive chưa chốt): < 1100px một cột, Nguyên liệu lên trước Cách làm, hết cố định */
+@media (max-width: 1099.98px) {
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .cover { width: auto; }
+  .grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'aside' 'main'; }
+  .aside { position: static; }
+  .ingCard { max-height: none; overflow: visible; }
+}
+@media (max-width: 767.98px) {
+  .page { width: calc(100% - 24px); padding: 16px 0 120px; }
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-bottom: 8px; }
+  .title { font-size: 24px; }
+  .card { padding: 16px; }
+  .nutri { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

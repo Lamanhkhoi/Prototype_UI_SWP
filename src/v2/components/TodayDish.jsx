@@ -29,10 +29,10 @@ const sizeOf = (name) => {
 };
 // Mỗi món 1 màu nước sốt cố định theo tên
 const TONES = ['tone1', 'tone2', 'tone3'];
-const toneOf = (name) => TONES[[...name].reduce((n, c) => n + c.charCodeAt(0), 0) % TONES.length];
+export const toneOf = (name) => TONES[[...name].reduce((n, c) => n + c.charCodeAt(0), 0) % TONES.length];
 
 /** Hình bát món nhìn từ trên xuống */
-function Bowl({ tone }) {
+export function Bowl({ tone }) {
   return (
     <svg className={`${s.bowl} ${s[tone]}`} viewBox="0 0 200 200" aria-hidden="true">
       <circle cx="100" cy="100" r="94" className={s.dish} />

@@ -102,6 +102,21 @@ export const MY_RECIPES = [
     created_at: '2026-10-02T11:05:00+07:00',
   },
   {
+    recipe_id: 40,
+    title: 'Cơm gạo lứt trộn rau củ nướng sốt mè rang với đậu hũ non chiên giòn',
+    dish_id: 13,
+    dish_name: 'Buddha bowl đậu hũ',
+    proposed_dish_name: null,
+    thumbnail_url: null,
+    servings: 2,
+    prep_time_minutes: 20,
+    cook_time_minutes: 35,
+    ingredient_count: 15,
+    status: 'approved',
+    rejection_reason: null,
+    created_at: '2026-10-14T19:20:00+07:00',
+  },
+  {
     recipe_id: 18,
     title: 'Nấm kho',
     dish_id: 10,
@@ -123,3 +138,99 @@ export const MY_RECIPES = [
     created_at: '2026-09-28T20:30:00+07:00',
   },
 ];
+
+// =====================================================================
+//  Trang xem công thức đã duyệt (#/cong-thuc/:id) — giả lập GET /api/recipes/:id của client
+//  (recipeService.getRecipe). Tên field đúng như API thật trả về (camelCase).
+//  Server chỉ trả công thức 'approved' của món đang 'active', còn lại 404.
+// =====================================================================
+
+/** Dị ứng / món kiêng người đang xem đã khai trong hồ sơ (bảng allergy). Dự án thật lấy từ hồ sơ. */
+export const MY_ALLERGIES = ['Đậu phộng'];
+
+const RECIPE_DETAILS = {
+  22: {
+    id: 22,
+    title: 'Canh chua chay miền Tây',
+    description: 'Vị chua thanh của me, ngọt của thơm, thêm đậu hũ chiên và nhiều rau thơm. Nấu nhanh cho bữa tối.',
+    dishId: 5,
+    dishName: 'Canh chua chay',
+    authorName: 'Lâm Anh Khôi',
+    authorAvatarUrl: null,
+    createdAt: '2026-10-02T11:05:00+07:00',
+    thumbnailUrl: null,
+    servings: 4,
+    prepTimeMinutes: 15,
+    cookTimeMinutes: 25,
+    caloriesKcal: 210,
+    proteinG: 9, carbG: 28, fatG: 7, fiberG: 5.5, sugarG: 11, sodiumMg: 640,
+    youtubeUrl: null,
+    ingredients: [
+      { name: 'Đậu hũ', amount: 300, unit: 'g' },
+      { name: 'Thơm (dứa)', amount: 0.5, unit: 'quả' },
+      { name: 'Cà chua', amount: 2, unit: 'quả' },
+      { name: 'Bạc hà (dọc mùng)', amount: 2, unit: 'cây' },
+      { name: 'Giá đỗ', amount: 100, unit: 'g' },
+      { name: 'Me chua', amount: 30, unit: 'g' },
+      { name: 'Rau ngổ, ngò gai', amount: null, unit: 'vừa đủ' },
+      { name: 'Nước tương', amount: 2, unit: 'muỗng canh' },
+    ],
+    instructions: [
+      'Ngâm me với 1 chén nước ấm, dằm lấy nước cốt, bỏ hạt.',
+      'Đậu hũ cắt miếng vừa ăn, chiên vàng hai mặt rồi vớt ra để ráo dầu.',
+      'Phi thơm chút dầu, cho thơm và cà chua vào xào sơ 2 phút cho ra màu.',
+      'Đổ 1,2 lít nước, đun sôi rồi thêm nước me, nêm nước tương và chút đường cho vừa chua ngọt.',
+      'Cho bạc hà, giá và đậu hũ vào, đun sôi lại 1 phút rồi tắt bếp. Rắc rau ngổ, ngò gai và dùng nóng.',
+    ],
+  },
+  40: {
+    id: 40,
+    title: 'Cơm gạo lứt trộn rau củ nướng sốt mè rang với đậu hũ non chiên giòn',
+    description: 'Phần ăn đủ chất cho người tập luyện: rau củ nướng, đậu hũ giòn và sốt mè béo bùi. Có thể làm sẵn mang đi làm.',
+    dishId: 13,
+    dishName: 'Buddha bowl đậu hũ',
+    authorName: 'Trần Hải Yến',
+    authorAvatarUrl: null,
+    createdAt: '2026-10-14T19:20:00+07:00',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80',
+    servings: 2,
+    prepTimeMinutes: 20,
+    cookTimeMinutes: 35,
+    caloriesKcal: 640,
+    proteinG: 24, carbG: 78, fatG: 26, fiberG: 12,
+    youtubeUrl: null, // có link thì trang hiện thêm khối "Video hướng dẫn"
+    ingredients: [
+      { name: 'Gạo lứt', amount: 150, unit: 'g' },
+      { name: 'Đậu hũ non', amount: 300, unit: 'g' },
+      { name: 'Bột năng', amount: 2, unit: 'muỗng canh' },
+      { name: 'Bí đỏ', amount: 200, unit: 'g' },
+      { name: 'Bông cải xanh', amount: 150, unit: 'g' },
+      { name: 'Cà rốt', amount: 1, unit: 'củ' },
+      { name: 'Hành tây tím', amount: 0.5, unit: 'củ' },
+      { name: 'Rong biển sấy', amount: 1, unit: 'gói' },
+      { name: 'Đậu phộng rang', amount: 30, unit: 'g' },
+      { name: 'Mè rang', amount: 3, unit: 'muỗng canh' },
+      { name: 'Nước tương', amount: 2, unit: 'muỗng canh' },
+      { name: 'Giấm gạo', amount: 1, unit: 'muỗng canh' },
+      { name: 'Đường', amount: 1, unit: 'muỗng cà phê' },
+      { name: 'Dầu ô liu', amount: 2, unit: 'muỗng canh' },
+      { name: 'Muối, tiêu', amount: null, unit: 'ít' },
+    ],
+    instructions: [
+      'Vo gạo lứt, ngâm 30 phút rồi nấu với tỉ lệ 1 gạo : 1,5 nước.',
+      'Bí đỏ, cà rốt cắt khối; bông cải tách nhánh. Trộn với dầu ô liu, muối, tiêu rồi nướng 200°C trong 20 phút.',
+      'Đậu hũ non cắt khối, lăn qua bột năng, chiên ngập dầu đến khi vàng giòn.',
+      'Sốt mè: giã mè rang, trộn nước tương, giấm gạo, đường và 3 muỗng nước ấm cho sệt.',
+      'Xếp cơm, rau củ nướng, đậu hũ, hành tím và rong biển vào tô. Rưới sốt mè, rắc đậu phộng rang giã dập.',
+    ],
+  },
+};
+
+/** Giả lập GET /recipes/:id → công thức, hoặc lỗi { status: 404 } / { status: 500 } */
+export const fetchRecipe = (id) => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (id === 'loi') reject(Object.assign(new Error('Lỗi máy chủ'), { status: 500 })); // thử trạng thái lỗi
+    else if (RECIPE_DETAILS[id]) resolve(RECIPE_DETAILS[id]);
+    else reject(Object.assign(new Error('Không tìm thấy'), { status: 404 }));
+  }, 500);
+});

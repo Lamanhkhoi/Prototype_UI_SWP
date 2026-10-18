@@ -394,6 +394,11 @@ export default function RecipeCreatePage({ user }) {
                         {r.ingredient_count ? ` · ${r.ingredient_count} nguyên liệu` : ''}
                       </span>
                     </p>
+                    {r.status === 'approved' && (
+                      <div className={s.sentActs}>
+                        <Button as="a" href={`#/cong-thuc/${r.recipe_id}`} variant="outline" icon="eye">Xem công thức</Button>
+                      </div>
+                    )}
                     {r.status === 'rejected' && (
                       <>
                         {r.rejection_reason && <Notice tone="alert" title="Lý do từ chối" className={s.reason}>{r.rejection_reason}</Notice>}
