@@ -31,6 +31,10 @@
 - 18/10/2026 · Trang xem công thức đã duyệt (#/cong-thuc/:id) dùng bố cục 2B: đầu trang ảnh 448 + thông tin 496; bên dưới Cách làm 608 | Nguyên liệu 336 cố định khi cuộn (cùng khung với trang Tạo công thức); màn < 1100px Nguyên liệu lên trước Cách làm · Đang nấu ở bước nào cũng thấy số lượng · Khôi
 - 18/10/2026 · Cảnh báo dị ứng trên trang xem công thức: khung đỏ đầu thẻ Nguyên liệu + dòng trùng tô đỏ kèm chữ "Bạn dị ứng" (so khớp bỏ dấu với danh sách dị ứng trong hồ sơ); chỉ cảnh báo, không ẩn công thức · Khôi
 - 18/10/2026 · Công thức chưa có ảnh bìa → hình bát minh hoạ trên nền vàng mơ (cùng kiểu thẻ "Hôm nay ăn gì?") · Khôi
+- 18/10/2026 · Thanh bên: mục "Món chay" đổi thành "Công thức" (#/cong-thuc) cho giống dự án; thay quyết định 11/10 "không thêm mục Công thức" · Khôi
+- 18/10/2026 · Trang Công thức dùng bố cục C: ô tìm + "Ẩn món tôi dị ứng"; khối "Nổi bật tuần này" (thẻ to 608 + 3 thẻ ngang 336); mỗi danh mục món (Món chính, Món nước…, thứ tự Admin sắp, danh mục rỗng thì ẩn) 1 hàng 3 công thức mới nhất + "Xem tất cả"; có từ khoá hoặc chọn danh mục → lưới kết quả phẳng có chip danh mục và sắp xếp · Món cụ thể chỉ hiện khi tìm/lọc · Khôi
+- 18/10/2026 · "Nổi bật tuần này" = nhiều lượt thích nhất 7 ngày, bằng nhau thì mới duyệt trước; thiếu thì lấy thêm công thức mới duyệt; tuần chưa ai thích → tiêu đề đổi thành "Mới duyệt tuần này" · Không ghi "nổi bật" sai sự thật · Khôi
+- 18/10/2026 · Thêm nút Thích cho công thức (trang xem công thức) và số lượt thích trên thẻ · Cần cho xếp hạng nổi bật · Khôi
 
 ## Đang mở
 
@@ -43,4 +47,5 @@
 - Ô nhập của kit (Bootstrap `form-control`) chưa dùng `--v-field-line` như DESIGN.md §1.1 → viền ô vẫn mờ; nên sửa 1 lần cho cả kit
 - Dữ liệu Recipe cần sửa ERD (Tùng): `recipe.dish_id` cho phép null, thêm `status`, `proposed_dish_name`, `rejection_reason`
 - Gửi lại công thức cần API `PUT /api/recipes/:id` (chỉ tác giả, chỉ khi `rejected`) và cột `recipe.updated_at` → báo backend / Tùng
-- Trang xem công thức: chưa có nút Báo cáo (chờ nhóm chốt ai xử lý) và chưa có danh sách công thức theo món (chi tiết món chưa làm)
+- Trang xem công thức: chưa có nút Báo cáo (chờ nhóm chốt ai xử lý)
+- Trang Công thức cần dữ liệu mới (Tùng/backend): bảng lượt thích công thức (likeCount, likesThisWeek, likedByMe), `recipe.moderated_at`, danh mục của công thức (qua dish ↔ dish_category), API GET /recipes (công khai, có q, category, sort) và POST/DELETE /recipes/:id/like; báo Lâm, Duy, Tùng việc đổi tên mục thanh bên

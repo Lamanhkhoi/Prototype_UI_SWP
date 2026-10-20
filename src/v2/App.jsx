@@ -7,10 +7,11 @@ import Hero, { QuickComposer } from './components/Hero';
 import AskMam from './components/AskMam';
 import PostCard from './components/PostCard';
 import { ActivityCard, RailFooter, ShopsCard, TrendingCard } from './components/Rail';
-import { CATEGORIES, CURRENT_USER, MEAL_TIMES, NAV, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../shared/mockData';
+import { CATEGORIES, CURRENT_USER, MEAL_TIMES, POSTS, SHOPS, TODAY_PLAN, TRENDING } from '../shared/mockData';
 import VersionSwitch from '../VersionSwitch';
 import RecipeCreatePage from './recipe/RecipeCreatePage';
 import RecipeDetailPage from './recipe/RecipeDetailPage';
+import RecipeListPage from './recipe/RecipeListPage';
 import s from './App.module.css';
 
 // Lọc nhanh: gọn 6 nút, vừa 1 hàng (không cuộn ngang)
@@ -31,15 +32,17 @@ const ACTIVITY = [
   { id: 5, who: 'Nguyễn Anh Tuấn', what: 'lưu thực đơn', target: 'Tuần giữ cân', when: '2 giờ trước' },
 ];
 
-// Thanh bên: đúng 4 mục thật của client (PostFeedPage.jsx). Hỏi Mầm vẫn ở nút nổi góc phải dưới.
+// Thanh bên: 4 mục thật của client. 18/10/2026: "Món chay" đổi thành "Công thức" (#/cong-thuc) cho giống dự án.
+// Hỏi Mầm vẫn ở nút nổi góc phải dưới.
 const SIDE_NAV = [
   { key: 'feed', label: 'Bảng tin', icon: 'house', iconActive: 'house-fill', href: '#/' },
-  { key: 'dishes', label: 'Món chay', icon: 'egg-fried', href: '#' },
+  { key: 'recipes', label: 'Công thức', icon: 'journal-richtext', href: '#/cong-thuc' },
   { key: 'meal-plan', label: 'Thực đơn', icon: 'calendar-week', iconActive: 'calendar-week-fill', href: '#' },
   { key: 'shops', label: 'Quán chay', icon: 'shop', href: '#' },
 ];
 
-// Trang con theo hash (prototype chưa có router): '' = Bảng tin · '#/tao-cong-thuc' = Tạo công thức · '#/cong-thuc/:id' = Xem công thức
+// Trang con theo hash (prototype chưa có router): '' = Bảng tin · '#/tao-cong-thuc' = Tạo công thức
+// '#/cong-thuc' (?q=…&dm=…) = trang Công thức · '#/cong-thuc/:id' = Xem công thức
 const RECIPE_ROUTE = '#/tao-cong-thuc';
 const useHashRoute = () => {
   const [hash, setHash] = useState(() => window.location.hash);
@@ -79,7 +82,10 @@ export default function App() {
   const route = useHashRoute();
   const onRecipePage = route === RECIPE_ROUTE;
   const recipeViewId = /^#\/cong-thuc\/([^/?]+)/.exec(route)?.[1];
-  const onSubPage = onRecipePage || !!recipeViewId; // trang con: không tô sáng mục nào ở thanh bên
+  const onRecipeList = /^#\/cong-thuc(\?|$)/.test(route);
+  const onSubPage = onRecipePage || !!recipeViewId || onRecipeList;
+  // Mục đang mở ở thanh bên: Công thức (danh sách + xem 1 công thức) · Bảng tin · Tạo công thức thì không tô mục nào
+  const navKey = recipeViewId || onRecipeList ? 'recipes' : onRecipePage ? undefined : 'feed';
   const [posts, setPosts] = useState(POSTS);
   const [category, setCategory] = useState('all');
   const [searchText, setSearchText] = useState('');
@@ -118,7 +124,7 @@ export default function App() {
       <Sidebar
         nav={SIDE_NAV}
         accountLinks={accountLinks}
-        activeKey={onSubPage ? undefined : 'feed'}
+        activeKey={navKey}
         user={CURRENT_USER}
         accountMenu={accountMenu}
         collapsed={!isMobile && collapsed}
@@ -137,7 +143,9 @@ export default function App() {
           onOpenMenu={() => setDrawerOpen(true)}
         />
 
-        {recipeViewId ? (
+        {onRecipeList ? (
+          <main><RecipeListPage route={route} /></main>
+        ) : recipeViewId ? (
           <main><RecipeDetailPage key={recipeViewId} recipeId={recipeViewId} /></main>
         ) : onRecipePage ? (
           <main><RecipeCreatePage user={CURRENT_USER} /></main>
@@ -214,16 +222,16 @@ export default function App() {
 
       {/* Điện thoại: thanh điều hướng dưới đáy */}
       <nav className={s.mobileNav} aria-label="Điều hướng nhanh">
-        {NAV.slice(0, 2).map((n, i) => (
-          <a key={n.key} href={i === 0 ? '#/' : '#'} className={`${s.mItem} ${i === 0 && !onSubPage ? s.mOn : ''}`}>
-            <i className={`bi bi-${i === 0 && !onSubPage ? n.iconActive : n.icon}`} aria-hidden="true" /><span>{n.label}</span>
+        {SIDE_NAV.slice(0, 2).map((n) => (
+          <a key={n.key} href={n.href} className={`${s.mItem} ${navKey === n.key ? s.mOn : ''}`} aria-current={navKey === n.key ? 'page' : undefined}>
+            <i className={`bi bi-${navKey === n.key && n.iconActive ? n.iconActive : n.icon}`} aria-hidden="true" /><span>{n.label}</span>
           </a>
         ))}
         <button type="button" className={s.mCreate} onClick={() => later('Hộp đăng bài')} aria-label="Đăng bài">
           <i className="bi bi-plus-lg" aria-hidden="true" />
         </button>
-        {NAV.slice(2, 4).map((n) => (
-          <a key={n.key} href="#" className={s.mItem}>
+        {SIDE_NAV.slice(2, 4).map((n) => (
+          <a key={n.key} href={n.href} className={s.mItem}>
             <i className={`bi bi-${n.icon}`} aria-hidden="true" /><span>{n.label}</span>
           </a>
         ))}

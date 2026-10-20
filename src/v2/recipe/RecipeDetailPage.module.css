@@ -70,10 +70,11 @@
   text-wrap: balance;
 }
 .desc { margin: 8px 0 0; color: var(--v-text-2); font-size: 16px; line-height: 1.6; }
-.by { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; }
+.by { display: flex; align-items: center; gap: 8px; align-self: stretch; margin-top: 16px; font-size: 14px; }
 .author { color: var(--v-text); font-weight: 600; }
 .when { color: var(--v-muted); }
 .when::before { content: '·'; margin-right: 8px; }
+.like { margin-left: auto; }
 .factsBox {
   display: flex;
   flex-direction: column;

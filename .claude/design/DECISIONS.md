@@ -22,6 +22,8 @@
 - 11/10/2026 · Trang Tạo công thức chốt bố cục B: khung 976 = form 608 + gap 32 + cột phụ 336; khối padding 24, bo 20, khối ↔ khối 24; cột phụ (Xem trước + Gửi) cố định khi cuộn; bỏ thẻ Tiến độ; Xem trước là thẻ luôn hiện, không phải popup; thẻ xem trước dùng bo góc lá · B to rõ nhất; dòng "Còn thiếu: …" dưới nút Gửi đã báo thiếu gì · Khôi
 - 11/10/2026 · Thanh bên v2 về đúng 4 mục thật của client (Bảng tin, Món chay, Thực đơn, Quán chay), không tô sáng mục nào khi ở trang Tạo công thức; lối vào Tạo công thức là 1 mục trong hộp tài khoản · Theo thảo luận nghiệp vụ 11/10 · Khôi
 
+- 20/10/2026 · Trang Công thức: khối "Nổi bật tuần này" đổi sang khung chiếu kiểu Epic Games Store (`v2/recipe/FeaturedCarousel`): khung chia đôi chữ trái / ảnh phải (cao 400, bo 20) + danh sách 5 công thức bên phải (240); tự chuyển sau 7 giây, dừng khi rê chuột / focus / bấm Tạm dừng, không tự chạy khi prefers-reduced-motion · Chia đôi giữ đúng biến màu ở cả 2 chế độ, công thức chưa có ảnh vẫn đẹp; 7 giây đủ đọc tiêu đề + mô tả 2 dòng · Khôi
+
 ## Đang mở
 
 - Giới hạn hiệu ứng trang trí: tối đa 1 / khu vực (ANTI-SLOP §1) — v2 đang dùng nhiều hiệu ứng React Bits cùng lúc

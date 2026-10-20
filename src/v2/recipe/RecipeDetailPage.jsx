@@ -6,6 +6,7 @@ import Notice from '../../components/Notice/Notice';
 import NumberStepper from '../../components/NumberStepper/NumberStepper';
 import Photo from '../../components/Photo/Photo';
 import Skeleton from '../../components/Skeleton/Skeleton';
+import VoteButton from '../../components/VoteButton/VoteButton';
 import YouTubeEmbed from '../../components/YouTubeEmbed/YouTubeEmbed';
 import { IngredientList, RecipeFacts, RecipeSteps } from '../../components/RecipeView/RecipeView';
 import { formatNumber, timeAgo } from '../../utils/format';
@@ -36,11 +37,16 @@ const fmt = (n) => (Number.isInteger(n) ? formatNumber(n) : n.toLocaleString('vi
 export default function RecipeDetailPage({ recipeId, load = fetchRecipe, allergies = MY_ALLERGIES }) {
   const [state, setState] = useState({ status: 'loading', recipe: null }); // loading | ready | notFound | error
   const [servings, setServings] = useState(null); // khẩu phần đang xem → số lượng tự nhân
+  const [like, setLike] = useState({ on: false, count: 0 }); // nút Thích (18/10: dùng để xếp "Nổi bật tuần này")
 
   const fetchIt = () => {
     setState({ status: 'loading', recipe: null });
     load(recipeId)
-      .then((recipe) => { setState({ status: 'ready', recipe }); setServings(recipe.servings ?? null); })
+      .then((recipe) => {
+        setState({ status: 'ready', recipe });
+        setServings(recipe.servings ?? null);
+        setLike({ on: !!recipe.likedByMe, count: recipe.likeCount ?? 0 });
+      })
       .catch((err) => setState({ status: err.status === 404 || err.status === 400 ? 'notFound' : 'error', recipe: null }));
   };
   useEffect(fetchIt, [recipeId]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -66,7 +72,7 @@ export default function RecipeDetailPage({ recipeId, load = fetchRecipe, allergi
   if (state.status === 'notFound') {
     return (
       <div className={s.page}>
-        <EmptyState icon="journal-x" title="Không tìm thấy công thức" action={<Button as="a" href="#/" icon="house">Về Bảng tin</Button>}>
+        <EmptyState icon="journal-x" title="Không tìm thấy công thức" action={<Button as="a" href="#/cong-thuc" icon="journal-richtext">Về trang Công thức</Button>}>
           Công thức không tồn tại, chưa được duyệt hoặc đã bị ẩn.
         </EmptyState>
       </div>
@@ -92,9 +98,9 @@ export default function RecipeDetailPage({ recipeId, load = fetchRecipe, allergi
   return (
     <article className={s.page}>
       <nav className={s.crumbs} aria-label="Đường dẫn">
-        <a href="#/">Bảng tin</a>
+        <a href="#/cong-thuc">Công thức</a>
         <i className="bi bi-chevron-right" aria-hidden="true" />
-        <span aria-current="page">Công thức</span>
+        <span aria-current="page">{r.dishName}</span>
       </nav>
 
       {/* Đầu trang: ảnh bìa | tên, món, tác giả, thông số */}
@@ -112,6 +118,14 @@ export default function RecipeDetailPage({ recipeId, load = fetchRecipe, allergi
             <Avatar name={r.authorName} src={r.authorAvatarUrl ?? undefined} size={32} />
             <span className={s.author}>{r.authorName}</span>
             <time className={s.when} dateTime={r.createdAt}>{timeAgo(r.createdAt)}</time>
+            {/* Prototype: chỉ đổi trên màn hình. Dự án thật: POST/DELETE /recipes/:id/like (cần bảng lượt thích) */}
+            <VoteButton
+              className={s.like}
+              noun="công thức"
+              voted={like.on}
+              count={like.count}
+              onToggle={() => setLike((l) => ({ on: !l.on, count: l.count + (l.on ? -1 : 1) }))}
+            />
           </div>
           <div className={s.factsBox}>
             <RecipeFacts cookTimeMinutes={totalTime || undefined} servings={r.servings} calories={r.caloriesKcal} />

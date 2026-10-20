@@ -25,11 +25,14 @@ import styles from './RecipeCard.module.css';
  * @param {number} [ingredientCount]
  * @param {string} [dishName]             hiện "Món: …" khi thẻ nằm ngoài trang món (vd Công thức của tôi)
  * @param {boolean} [isOwner] + [onEdit] · [onDelete]   hoặc   [onReport] cho người khác
+ * @param {string} [flag]                nhãn dị ứng, vd "Có Đậu phộng": card → cạnh thời gian; row → "Dị ứng" dưới ảnh (trùng dị ứng của người xem)
+ * @param {number} [likeCount]           số lượt thích, hiện ở cuối dòng tác giả
+ * @param {React.ReactNode} [fallback]   hình thay khi chưa có ảnh (mặc định ô ảnh trống của Photo)
  */
 export default function RecipeCard({
   layout = 'row', title, description, imageUrl, href = '#', linkAs, author = {}, createdAt,
   cookTimeMinutes, servings, calories, ingredientCount, dishName,
-  isOwner = false, onEdit, onDelete, onReport, className,
+  isOwner = false, onEdit, onDelete, onReport, flag, likeCount, fallback, className,
 }) {
   const [Link, linkProps] = getLink(linkAs, href);
   const items = isOwner
@@ -49,9 +52,18 @@ export default function RecipeCard({
 
   return (
     <article className={cx(layout === 'card' ? styles.card : styles.row, className)}>
-      <Link {...linkProps} className={styles.media} tabIndex={-1} aria-hidden="true">
-        <Photo src={imageUrl} ratio={layout === 'card' ? '16/9' : '4/3'} shape="rounded" className={styles.img} />
-      </Link>
+      <div className={styles.mediaCol}>
+        <Link {...linkProps} className={styles.media} tabIndex={-1} aria-hidden="true">
+          {!imageUrl && fallback
+            ? <div className={styles.fallback} style={{ aspectRatio: layout === 'card' ? '16/9' : '4/3' }}>{fallback}</div>
+            : <Photo src={imageUrl} ratio={layout === 'card' ? '16/9' : '4/3'} shape="rounded" className={styles.img} />}
+        </Link>
+        {flag && layout !== 'card' && (
+          <span className={styles.flag} title={flag}>
+            <i className="bi bi-exclamation-triangle-fill" aria-hidden="true" /> Dị ứng<span className="visually-hidden">: {flag}</span>
+          </span>
+        )}
+      </div>
       <div className={styles.body}>
         <div className={styles.top}>
           <div className={styles.titles}>
@@ -66,7 +78,9 @@ export default function RecipeCard({
           <Avatar src={author.avatarUrl} name={author.name} size={22} />
           <span className={styles.author}>{isOwner ? 'Bạn' : author.name}</span>
           {createdAt && <time dateTime={createdAt}>· {timeAgo(createdAt)}</time>}
+          {flag && layout === 'card' && <span className={styles.flag}><i className="bi bi-exclamation-triangle-fill" aria-hidden="true" /> {flag}</span>}
           {ingredientCount != null && <span className={styles.ing}><i className="bi bi-basket" aria-hidden="true" /> {ingredientCount} nguyên liệu</span>}
+          {likeCount != null && <span className={styles.ing}><i className="bi bi-hand-thumbs-up" aria-hidden="true" /> {likeCount}<span className="visually-hidden"> lượt thích</span></span>}
         </div>
       </div>
     </article>

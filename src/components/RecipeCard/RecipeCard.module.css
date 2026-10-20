@@ -1,5 +1,6 @@
 .row,
 .card {
+  position: relative;
   min-width: 0;
   border: 1px solid var(--ac-border);
   border-radius: var(--ac-radius-lg);
@@ -8,6 +9,7 @@
 .row { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 1rem; align-items: start; padding: 0.75rem; }
 .card { display: flex; flex-direction: column; gap: 0.75rem; padding: 0.6rem 0.6rem 0.8rem; }
 
+.mediaCol { display: grid; gap: 8px; min-width: 0; }
 .media { display: block; overflow: hidden; border-radius: var(--ac-radius-lg); }
 .img { transition: transform .3s var(--ac-ease-out); }
 .media:hover .img { transform: scale(1.03); }
@@ -39,3 +41,30 @@
   .row .desc { display: none; }
   .ing { margin-left: 0; }
 }
+
+/* Chưa có ảnh: hình thay (vd bát minh hoạ) trên nền vàng mơ */
+.fallback {
+  display: grid;
+  place-items: center;
+  overflow: hidden; /* min-height: auto → 0, để hình thay không đẩy khung cao hơn tỉ lệ */
+  border-radius: var(--ac-radius-lg);
+  background: color-mix(in srgb, var(--ac-highlight) 18%, var(--ac-card));
+}
+.fallback { grid-template-rows: 100%; } /* hàng cao xác định → hình thay dùng được height: % */
+/* Nhãn cảnh báo dị ứng (trùng dị ứng của người xem): thẻ card → cạnh thời gian; thẻ row → dưới ảnh */
+.flag {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: var(--ac-radius-sm);
+  background: var(--ac-alert);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.row .flag { justify-content: center; }
+
+:global([data-theme="dark"]) .flag { color: #1C1A16; }
