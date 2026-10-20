@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Avatar from '../../components/Avatar/Avatar';
-import IconButton from '../../components/IconButton/IconButton';
 import Photo from '../../components/Photo/Photo';
 import { RecipeFacts } from '../../components/RecipeView/RecipeView';
 import { Bowl, toneOf } from '../components/TodayDish';
@@ -12,8 +11,8 @@ import s from './FeaturedCarousel.module.css';
  *
  * Tự chuyển bài sau 7 giây. Thời gian do CSS animation của thanh tiến độ đếm
  * (hết animation → sang bài kế), nên tạm dừng chỉ là `animation-play-state: paused`.
- * Dừng khi: rê chuột vào, Tab vào bên trong, bấm nút Tạm dừng (WCAG 2.2.2).
- * prefers-reduced-motion: thanh không chạy → không tự chuyển, ẩn nút Tạm dừng.
+ * Dừng khi: rê chuột vào hoặc Tab vào bên trong (bỏ nút Tạm dừng riêng 20/10 theo Khôi).
+ * prefers-reduced-motion: thanh không chạy → không tự chuyển.
  *
  * @param {object[]} items       công thức (dạng GET /api/recipes)
  * @param {(id) => string} hrefOf
@@ -27,9 +26,7 @@ const Cover = ({ it, thumb }) => (it.thumbnailUrl
 
 export default function FeaturedCarousel({ items, hrefOf, flagOf = () => undefined }) {
   const [active, setActive] = useState(0);
-  const [stopped, setStopped] = useState(false); // người dùng bấm Tạm dừng
-  const [hold, setHold] = useState(false);       // đang rê chuột / đang focus bên trong
-  const paused = stopped || hold;
+  const [paused, setPaused] = useState(false); // đang rê chuột / đang focus bên trong
   const it = items[active];
   const flag = flagOf(it);
   const time = (it.prepTimeMinutes ?? 0) + (it.cookTimeMinutes ?? 0) || undefined;
@@ -38,10 +35,10 @@ export default function FeaturedCarousel({ items, hrefOf, flagOf = () => undefin
     <div
       className={s.wrap}
       aria-roledescription="băng chuyền"
-      onMouseEnter={() => setHold(true)}
-      onMouseLeave={() => setHold(false)}
-      onFocus={() => setHold(true)}
-      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setHold(false)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setPaused(false)}
     >
       <article
         key={it.id}
@@ -72,13 +69,6 @@ export default function FeaturedCarousel({ items, hrefOf, flagOf = () => undefin
             <RecipeFacts cookTimeMinutes={time} servings={it.servings} calories={it.caloriesKcal ?? undefined} size="sm" />
           </div>
         </div>
-        <IconButton
-          className={s.pause}
-          icon={stopped ? 'play-fill' : 'pause-fill'}
-          label={stopped ? 'Tiếp tục tự chuyển' : 'Tạm dừng tự chuyển'}
-          variant="soft"
-          onClick={() => setStopped(!stopped)}
-        />
       </article>
 
       <ul className={s.list} aria-label="Chọn công thức nổi bật">

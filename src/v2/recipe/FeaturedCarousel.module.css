@@ -44,11 +44,11 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
-  width: 42%;
+  width: 40%;
   height: 100%;
   padding: 32px 0 32px 32px;
 }
-.top { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.top { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0; }
 .mid { display: flex; flex-direction: column; gap: 12px; }
 .foot { display: flex; flex-direction: column; gap: 8px; }
 .dish { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--v-accent-text); font-size: 17px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
@@ -90,8 +90,6 @@
 /* Tối: chữ trắng / #E07A5F chỉ 2.95:1 → dùng nền trang tối (xem DECISIONS "Đang mở") */
 :global([data-theme="dark"]) .flag { color: var(--v-bg); }
 
-/* Góc dưới bên phải khung, nằm trên ảnh: nền đặc (soft) + bóng để đọc được trên mọi ảnh */
-.pause { position: absolute; right: 16px; bottom: 16px; border: 1px solid var(--v-line-2); box-shadow: var(--v-shadow); }
 
 /* Chưa có ảnh: bát minh hoạ trên nền vàng mơ (giống RecipeCard) */
 .fallback {
@@ -167,7 +165,6 @@
 @media (prefers-reduced-motion: reduce) {
   .slide { animation: none; }
   .progress { display: none; } /* không có animation → không tự chuyển */
-  .pause { display: none; }
 }
 
 /* Màn hẹp: danh sách thành dải ảnh nhỏ nằm ngang dưới khung chiếu */
@@ -187,5 +184,4 @@
   }
   .text { width: 100%; height: auto; padding: 0 16px 16px; margin-top: -24px; }
   .title { font-size: 20px; }
-  .pause { top: 16px; bottom: auto; } /* điện thoại: ảnh nằm trên, nút lên góc phải ảnh */
 }

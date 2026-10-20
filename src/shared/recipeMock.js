@@ -278,6 +278,14 @@ export const PUBLIC_RECIPES = [
     { prepTimeMinutes: 15, cookTimeMinutes: 40, ingredientNames: ['Củ cải', 'Cà rốt', 'Bắp'] }),
   r(51, 'Đậu hũ non hấp nấm đông cô', 'Đậu hũ non hấp nấm', [1, 3], 'Lê Minh Thắng', '2026-10-01T18:10:00+07:00', 11, 0,
     { servings: 2, prepTimeMinutes: 10, cookTimeMinutes: 15, ingredientNames: ['Đậu hũ non', 'Nấm đông cô', 'Hành lá'] }),
+  r(52, 'Canh khổ qua nhồi nấm đông cô', 'Canh khổ qua nhồi nấm', [2], 'Đỗ Gia Bảo', '2026-10-17T11:30:00+07:00', 21, 16,
+    { servings: 3, prepTimeMinutes: 25, cookTimeMinutes: 30, caloriesKcal: 150,
+      description: 'Khổ qua khứa khoanh, nhồi nấm đông cô và đậu hũ băm, ninh mềm trong nước dùng rau củ. Vị đắng dịu, ăn mát.',
+      ingredientNames: ['Khổ qua', 'Nấm đông cô', 'Đậu hũ', 'Hành lá'], thumbnailUrl: '/mock/kho-qua-tuoi.png' }),
+  r(53, 'Trà khổ qua khô thanh nhiệt', 'Trà khổ qua', [6], 'Võ Ngọc Mai', '2026-10-18T09:15:00+07:00', 13, 13,
+    { servings: 4, prepTimeMinutes: 5, cookTimeMinutes: 15, caloriesKcal: 10,
+      description: 'Khổ qua thái lát phơi khô, hãm với nước sôi. Uống ấm hoặc để nguội, không cần thêm đường.',
+      ingredientNames: ['Khổ qua khô', 'Nước lọc'], thumbnailUrl: '/mock/tra-kho-qua-kho.png' }),
 ];
 
 /** Giả lập GET /recipes (công khai) → { items } */
