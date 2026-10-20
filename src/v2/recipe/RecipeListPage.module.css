@@ -1,13 +1,13 @@
 /* =====================================================================
    Trang Công thức — bố cục C (chốt 18/10/2026)
-   Khung 976 · đầu trang → ô tìm 24 · → khối đầu 32 · giữa các khối 48 · tiêu đề khối → nội dung 16
-   Nổi bật: khung chiếu kiểu Epic (FeaturedCarousel, 20/10) · hàng danh mục: lưới 3 × 304, gap 32
+   Khung 1200 (20/10: nới từ 976 cho nổi bật) · đầu trang → ô tìm 24 · → khối đầu 32 · giữa các khối 48 · tiêu đề khối → nội dung 16
+   Nổi bật: khung chiếu kiểu Epic (FeaturedCarousel, 20/10) · hàng danh mục: lưới 3 cột co giãn (≈ 378 ở khung 1200), gap 32
    Chỉ dùng biến màu.
    ===================================================================== */
 .page {
   display: flex;
   flex-direction: column;
-  width: min(976px, 100% - 48px);
+  width: min(1200px, 100% - 48px);
   margin-inline: auto;
   padding: 32px 0 96px;
 }

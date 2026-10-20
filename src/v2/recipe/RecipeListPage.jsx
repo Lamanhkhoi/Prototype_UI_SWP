@@ -115,7 +115,6 @@ export default function RecipeListPage({ route = '#/cong-thuc', load = fetchPubl
           <h1 className={s.title}>Công thức</h1>
           <p className={s.desc}>Cách nấu món chay do cộng đồng chia sẻ, đã được Admin duyệt.</p>
         </div>
-        <Button as="a" href="#/tao-cong-thuc" icon="plus-lg">Tạo công thức</Button>
       </header>
 
       <div className={s.tools}>
