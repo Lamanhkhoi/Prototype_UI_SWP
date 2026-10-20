@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Avatar from '../../components/Avatar/Avatar';
-import Button from '../../components/Button/Button';
 import IconButton from '../../components/IconButton/IconButton';
 import Photo from '../../components/Photo/Photo';
 import { RecipeFacts } from '../../components/RecipeView/RecipeView';
@@ -50,6 +49,8 @@ export default function FeaturedCarousel({ items, hrefOf, flagOf = () => undefin
         aria-roledescription="trang chiếu"
         aria-label={`${active + 1} trên ${items.length}`}
         aria-live={paused ? 'polite' : 'off'}
+        // Cả khung bấm được bằng chuột; bàn phím / trình đọc màn hình dùng link ở tiêu đề
+        onClick={(e) => { if (!e.target.closest('a, button')) window.location.assign(hrefOf(it.id)); }}
       >
         {/* Ảnh đứng trước chữ trong DOM: cùng là phần tử định vị, cái sau nằm trên → chữ luôn nằm trên ảnh */}
         <a href={hrefOf(it.id)} className={s.media} tabIndex={-1} aria-hidden="true"><Cover it={it} /></a>
@@ -61,16 +62,6 @@ export default function FeaturedCarousel({ items, hrefOf, flagOf = () => undefin
           <div className={s.mid}>
             <h3 className={s.title}><a href={hrefOf(it.id)}>{it.title}</a></h3>
             {it.description && <p className={s.desc}>{it.description}</p>}
-            <div className={s.actions}>
-              <Button as="a" href={hrefOf(it.id)} icon="arrow-right" iconPosition="end">Xem công thức</Button>
-              <IconButton
-                className={s.pause}
-                icon={stopped ? 'play-fill' : 'pause-fill'}
-                label={stopped ? 'Tiếp tục tự chuyển' : 'Tạm dừng tự chuyển'}
-                variant="ghost"
-                onClick={() => setStopped(!stopped)}
-              />
-            </div>
           </div>
           <div className={s.foot}>
             <div className={s.by}>
@@ -81,6 +72,13 @@ export default function FeaturedCarousel({ items, hrefOf, flagOf = () => undefin
             <RecipeFacts cookTimeMinutes={time} servings={it.servings} calories={it.caloriesKcal ?? undefined} size="sm" />
           </div>
         </div>
+        <IconButton
+          className={s.pause}
+          icon={stopped ? 'play-fill' : 'pause-fill'}
+          label={stopped ? 'Tiếp tục tự chuyển' : 'Tạm dừng tự chuyển'}
+          variant="soft"
+          onClick={() => setStopped(!stopped)}
+        />
       </article>
 
       <ul className={s.list} aria-label="Chọn công thức nổi bật">

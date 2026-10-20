@@ -17,8 +17,14 @@
   border-radius: var(--ac-radius-surface);
   background: var(--v-surface);
   box-shadow: var(--v-shadow);
+  cursor: pointer;
   animation: fadeIn 250ms var(--ac-ease-out);
+  transition: background-color 150ms var(--ac-ease-out), border-color 150ms var(--ac-ease-out);
 }
+/* Rê chuột: viền rêu 2px + nền ngả bề mặt 2 → báo cả khung bấm được (thay cho gạch chân tiêu đề).
+   Ảnh dùng mask nên tự hoà theo màu nền mới, không lộ vạch. */
+.slide:hover { border-color: var(--v-accent); background: var(--v-surface-2); box-shadow: var(--v-shadow), 0 0 0 1px var(--v-accent); }
+.slide:hover .title a { color: var(--v-accent-text); }
 @keyframes fadeIn { from { opacity: 0; } }
 
 .media {
@@ -38,14 +44,14 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
-  width: 40%;
+  width: 42%;
   height: 100%;
   padding: 32px 0 32px 32px;
 }
-.top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.top { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .mid { display: flex; flex-direction: column; gap: 12px; }
 .foot { display: flex; flex-direction: column; gap: 8px; }
-.dish { color: var(--v-accent-text); font-size: 12px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+.dish { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--v-accent-text); font-size: 17px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
 .title {
   display: -webkit-box;
   margin: 0;
@@ -57,7 +63,6 @@
   -webkit-box-orient: vertical;
 }
 .title a { color: var(--v-text); text-decoration: none; }
-.title a:hover { color: var(--v-accent-text); text-decoration: underline; }
 .desc {
   display: -webkit-box;
   margin: 0;
@@ -76,6 +81,7 @@
   gap: 4px;
   padding: 4px 8px;
   border-radius: var(--ac-radius-sm);
+  flex: none;
   background: var(--ac-alert);
   color: var(--ac-on-alert);
   font-size: 12px;
@@ -84,7 +90,8 @@
 /* Tối: chữ trắng / #E07A5F chỉ 2.95:1 → dùng nền trang tối (xem DECISIONS "Đang mở") */
 :global([data-theme="dark"]) .flag { color: var(--v-bg); }
 
-.actions { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+/* Góc dưới bên phải khung, nằm trên ảnh: nền đặc (soft) + bóng để đọc được trên mọi ảnh */
+.pause { position: absolute; right: 16px; bottom: 16px; border: 1px solid var(--v-line-2); box-shadow: var(--v-shadow); }
 
 /* Chưa có ảnh: bát minh hoạ trên nền vàng mơ (giống RecipeCard) */
 .fallback {
@@ -180,4 +187,5 @@
   }
   .text { width: 100%; height: auto; padding: 0 16px 16px; margin-top: -24px; }
   .title { font-size: 20px; }
+  .pause { top: 16px; bottom: auto; } /* điện thoại: ảnh nằm trên, nút lên góc phải ảnh */
 }
