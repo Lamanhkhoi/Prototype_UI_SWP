@@ -7,7 +7,7 @@
 .page {
   display: flex;
   flex-direction: column;
-  width: min(1200px, 100% - 48px);
+  width: min(976px, 100% - 48px); /* 27/10: cùng khung 976 với trang Xem / Tạo công thức → mép trái không nhảy khi chuyển trang */
   margin-inline: auto;
   padding: 32px 0 96px;
 }
