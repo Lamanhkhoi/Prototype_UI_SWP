@@ -11,6 +11,18 @@ npm install
 npm run dev
 ```
 
+## Đồng bộ UI với dự án (27/10/2026, nhánh `sync-project-ui`)
+
+Khung chung (MemberLayout, FeedSidebar, FeedTopbar), các component dùng chung và 3 trang Công thức được copy **nguyên văn**
+từ `vegetarians_social_web_app_SWP/client/src` (nhánh `origin/dev/sprint3/sprint3`, commit `0464258`).
+
+- Đường dẫn giống dự án: `/recipes` · `/recipes/40` · `/recipes/new` (link cũ `#/cong-thuc/...` tự chuyển sang).
+  Thử trạng thái: `/recipes/999` = không tìm thấy · `/recipes/500` = lỗi máy chủ.
+- Không có server: `src/services/api.js` gọi **backend giả** `src/services/mockBackend.js` (dữ liệu ở `src/shared/recipeMock.js`).
+  Đây là 2 file duy nhất khác dự án ở tầng service.
+- Đồng bộ lần sau: copy lại `pages/Recipe*`, `components/`, `hooks/`, `utils/`, `constants/`, `styles/feed-theme.css`
+  và các `services/*.service.js` từ dự án. **Không** chép đè `services/api.js`.
+
 ## v3: "Bếp nhà" (làm theo gợi ý của skill ui-ux-pro-max)
 
 Hướng thiết kế lấy từ `--design-system` của ui-ux-pro-max: kiểu **Nature Distilled + Flat**, màu ô liu + đất nung.

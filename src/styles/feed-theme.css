@@ -1,0 +1,44 @@
+/* =====================================================================
+   BẢNG TIN — chỉ còn BỐ CỤC (theo prototype UI v2, src/v2/v2.css).
+   MÀU không định nghĩa ở đây nữa: mọi màu Sáng/Tối (cả --ac-* lẫn bí danh --v-*)
+   nằm 1 chỗ duy nhất ở styles/theme.scss — bảng 6 màu áp cho toàn app (chốt 09/10/2026).
+   PostFeedPage gắn <html data-feed-v2> khi mở, gỡ khi rời trang.
+   ===================================================================== */
+
+:root[data-feed-v2] body {
+  margin: 0;
+  background: var(--v-bg);
+  color: var(--v-text);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .3s;
+}
+
+/* Lưới 3 cột dùng chung cho thanh trên + Bảng tin → ô tìm kiếm luôn thẳng cột với bảng tin.
+   Cột trái: lời chào · cột giữa: bảng tin · cột phải: để trống (các khối Hoạt động, Quán... chưa có dữ liệu thật).
+   Số cột tính theo CHỖ TRỐNG THẬT của vùng chính (container query), không theo bề rộng cửa sổ
+   → thanh bên mở hay thu gọn thì bảng tin vẫn đủ rộng:
+     vùng chính ≥ 1176px: 3 cột (272 | bảng tin | 272) — bảng tin còn ≥ 520px
+     800–1175px:          2 cột (200 | bảng tin tối đa 680px)
+     < 800px:             1 cột, lời chào nằm trên bảng tin (PostFeedPage.module.css, FeedTopbar.module.css) */
+:root[data-feed-v2] { --v-cols: 272px minmax(0, 1fr) 272px; --v-wrap: 1240px; }
+.feed-v2-main { container: feedmain / inline-size; }
+@container feedmain (max-width: 1175.98px) {
+  .feed-v2-main > * { --v-cols: 200px minmax(0, 680px); --v-wrap: 912px; }
+}
+
+:root[data-feed-v2] ::selection { background: var(--v-accent-soft); }
+:root[data-feed-v2] :focus-visible { outline: 2px solid var(--v-accent); outline-offset: 2px; }
+
+/* Lưới chấm mờ phía trên — tạo chiều sâu, không phát sáng */
+.feed-v2-page { position: relative; min-height: 100dvh; isolation: isolate; }
+.feed-v2-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(var(--v-dot) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+  pointer-events: none;
+}

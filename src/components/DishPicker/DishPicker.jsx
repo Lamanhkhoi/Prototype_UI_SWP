@@ -1,7 +1,7 @@
 import { useId, useMemo, useRef, useState } from 'react';
-import Field from '../../components/Field/Field';
-import HighlightChip from '../../components/HighlightChip/HighlightChip';
-import { searchDishes } from './dishMatch';
+import Field from '../Field/Field';
+import HighlightChip from '../HighlightChip/HighlightChip';
+import { searchDishes } from '../../utils/dishMatch';
 import s from './DishPicker.module.css';
 
 /**
@@ -91,7 +91,7 @@ export default function DishPicker({ value, onChange, dishes, error, label = 'T�
       <Field id={id} label={label} required={required} error={error} hint={hint}>
         <div className={`form-control ${s.chosen}`} id={id} tabIndex={-1}>
           {proposed ? (
-            <HighlightChip icon="lightbulb">Đề xuất: {value.name}</HighlightChip>
+            <HighlightChip icon="lightbulb" className={s.proposedChip}>Đề xuất: {value.name}</HighlightChip>
           ) : (
             <span className={s.dishChip}><i className="bi bi-check-circle-fill" aria-hidden="true" />{value.dish.name}</span>
           )}

@@ -1,3 +1,5 @@
+/* Thanh bên trái của Bảng tin — theo prototype UI v2 (src/v2/components/Sidebar.module.css).
+   Thêm so với prototype: khối Đăng nhập / Đăng ký cho khách; lối tắt tài khoản là <button>. */
 .side {
   --w: 252px;
   position: sticky;
@@ -97,7 +99,6 @@
 }
 .icon { width: 20px; flex: none; font-size: 1.12rem; text-align: center; }
 .label { overflow: hidden; text-overflow: ellipsis; transition: opacity .2s; }
-/* Nhãn "AI": nền Vàng cúc, chữ luôn nâu đen */
 /* ---------- Đáy ---------- */
 .bottom { display: grid; gap: 10px; margin-top: auto; padding-top: 12px; }
 
@@ -130,6 +131,10 @@
 }
 .link {
   display: flex;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
   align-items: center;
   gap: 12px;
   height: 38px;
@@ -142,6 +147,9 @@
   white-space: nowrap;
 }
 .link:hover { background: var(--v-surface-2); color: var(--v-text); text-decoration: none; }
+.linkActive, .linkActive:hover { background: var(--v-surface-3); color: var(--v-accent-text); }
+.link:disabled { opacity: .6; cursor: wait; }
+.link:disabled:hover { background: transparent; color: var(--v-muted); }
 .link .icon { font-size: 1rem; }
 .linkAlert, .linkAlert:hover { color: var(--ac-alert); }
 .drawer {
@@ -207,6 +215,53 @@
   color: var(--v-text);
   font-size: 0.8rem;
   font-weight: 500;
+  box-shadow: var(--v-shadow-pop);
+  pointer-events: none;
+}
+
+/* ---------- Khách: Đăng nhập / Đăng ký ---------- */
+.guest { display: grid; gap: 6px; }
+.login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--v-accent);
+  color: var(--v-on-accent);
+  font-size: 0.92rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color .15s, transform .15s;
+}
+.login i { width: 20px; flex: none; font-size: 1.1rem; text-align: center; }
+.login:hover { background: var(--v-accent-hover); }
+.login:active { transform: scale(.98); }
+.register {
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--v-accent-text);
+  font-size: 0.84rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.register:hover { background: var(--v-surface-2); }
+.collapsed .register { display: none; }
+.collapsed .login { justify-content: center; padding: 0; }
+.collapsed .login[title]:hover::after {
+  content: attr(title);
+  position: fixed;
+  left: 84px;
+  padding: 5px 10px;
+  border: 1px solid var(--v-line-2);
+  border-radius: 8px;
+  background: var(--v-surface-2);
+  color: var(--v-text);
+  font-size: 0.8rem;
   box-shadow: var(--v-shadow-pop);
   pointer-events: none;
 }
