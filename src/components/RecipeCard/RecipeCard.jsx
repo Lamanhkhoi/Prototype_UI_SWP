@@ -13,6 +13,7 @@ import styles from './RecipeCard.module.css';
  *  - layout="row" : danh sách công thức trong Dish Detail (M-13), "Công thức của tôi"
  *  - layout="card": lưới công thức nổi bật
  * Recipe không có vote và không có bước duyệt ở v4.0; người khác chỉ có thể Báo cáo (FR-24).
+ * Khoi's code (20/10/2026, từ prototype): thêm flag (nhãn dị ứng), likeCount, fallback (hình khi chưa có ảnh).
  *
  * @param {'row'|'card'} [layout='row']
  * @param {string} title                  recipe.title

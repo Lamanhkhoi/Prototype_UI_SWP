@@ -12,7 +12,7 @@ import styles from './VoteButton.module.css';
  *        Khách chưa đăng nhập: trang mở LoginPrompt thay vì gọi API.
  * @param {'sm'|'md'} [size='md']
  * @param {boolean} [disabled]  vd bài đang chờ duyệt
- * @param {string} [noun='bài viết']  đọc cho trình đọc màn hình, vd 'công thức'
+ * @param {string} [noun='bài viết']  Khoi's code: đọc cho trình đọc màn hình, vd 'công thức'
  */
 export default function VoteButton({ voted = false, count = 0, onToggle, size = 'md', disabled, noun = 'bài viết', className }) {
   return (

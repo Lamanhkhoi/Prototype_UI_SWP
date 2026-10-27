@@ -12,7 +12,11 @@ import './v2.css';
 
 import { ToastProvider } from '../components/Toast/Toast';
 import { initTheme } from '../utils/theme';
-import App from './App';
+import App, { legacyTarget } from './App';
+
+// Link cũ kiểu hash (#/cong-thuc/40…) → đường dẫn giống dự án (/recipes/40), trước khi vẽ trang
+const legacy = legacyTarget(window.location.hash);
+if (legacy) window.location.replace(legacy);
 
 // Sáng / Tối dùng chung cơ chế của bộ kit (lưu localStorage, mặc định theo máy)
 initTheme();
